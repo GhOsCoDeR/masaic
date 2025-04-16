@@ -1,4 +1,164 @@
-// Mobile Menu Toggle - ENHANCED VERSION
+// Mobile Menu Toggle
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    hamburger.classList.toggle('active');
+});
+
+// Smooth Scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+// Navbar Scroll Effect
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+    } else {
+        navbar.style.background = 'var(--white)';
+        navbar.style.boxShadow = 'none';
+    }
+});
+
+// Scroll Reveal Animation
+const revealElements = document.querySelectorAll('.reveal');
+
+const revealOnScroll = () => {
+    revealElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementTop < windowHeight - 100) {
+            element.classList.add('active');
+        }
+    });
+};
+
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll);
+
+// Product Card Hover Effect
+const productCards = document.querySelectorAll('.product-card');
+
+productCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-10px)';
+        card.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.2)';
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0)';
+        card.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+    });
+});
+
+// Form Validation
+const contactForm = document.querySelector('.contact-form form');
+
+contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const name = contactForm.querySelector('input[type="text"]').value;
+    const email = contactForm.querySelector('input[type="email"]').value;
+    const message = contactForm.querySelector('textarea').value;
+    
+    if (name && email && message) {
+        // Here you would typically send the form data to a server
+        alert('Thank you for your message! We will get back to you soon.');
+        contactForm.reset();
+    } else {
+        alert('Please fill in all fields.');
+    }
+});
+
+// Counter Animation for Impact Stats
+const statCards = document.querySelectorAll('.stat-card h3');
+
+const animateValue = (element, start, end, duration) => {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const value = Math.floor(progress * (end - start) + start);
+        element.textContent = value + '+';
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step);
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const target = entry.target;
+            const value = parseInt(target.textContent);
+            animateValue(target, 0, value, 2000);
+            observer.unobserve(target);
+        }
+    });
+}, { threshold: 0.5 });
+
+statCards.forEach(card => observer.observe(card));
+
+// Hero Slideshow Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    let currentSlide = 0;
+    
+    if (heroSlides.length > 0) {
+        // Make sure first slide is active
+        heroSlides.forEach(slide => slide.classList.remove('active'));
+        heroSlides[0].classList.add('active');
+        
+        function showSlide(index) {
+            // Hide all slides
+            heroSlides.forEach(slide => slide.classList.remove('active'));
+            
+            // Show the specified slide
+            heroSlides[index].classList.add('active');
+            currentSlide = index;
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % heroSlides.length;
+            showSlide(currentSlide);
+        }
+        
+        // Change slide every 5 seconds
+        const slideInterval = setInterval(nextSlide, 5000);
+        
+        // Add event listeners to pause slideshow when interacting with hero section
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+            heroSection.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+            
+            heroSection.addEventListener('mouseleave', () => {
+                setInterval(nextSlide, 5000);
+            });
+        }
+    }
+});
+
+// Parallax Effect for Hero Section
+window.addEventListener('scroll', () => {
+    const hero = document.querySelector('.hero');
+    const scrolled = window.pageYOffset;
+    // We don't manipulate backgroundPositionY directly anymore since we're using slides
+});
+
+// Mobile Navigation Toggle - Enhanced
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
@@ -7,27 +167,26 @@ document.addEventListener('DOMContentLoaded', function() {
     if (hamburger && navLinks) {
         // Toggle navigation menu
         hamburger.addEventListener('click', function() {
-            this.classList.toggle('active');
             navLinks.classList.toggle('active');
-            
-            // Add animation delay to each nav link for staggered effect
-            const navItems = document.querySelectorAll('.nav-links a');
-            navItems.forEach((item, index) => {
-                item.style.setProperty('--i', index);
-            });
+            hamburger.classList.toggle('active');
             
             // Prevent scrolling when menu is open
-            document.body.classList.toggle('menu-open');
+            if (navLinks.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
         });
         
         // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (navLinks && navLinks.classList.contains('active') &&
-                !navLinks.contains(e.target) && 
-                !hamburger.contains(e.target)) {
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = navLinks.contains(event.target);
+            const isClickOnHamburger = hamburger.contains(event.target);
+            
+            if (navLinks.classList.contains('active') && !isClickInsideNav && !isClickOnHamburger) {
                 navLinks.classList.remove('active');
                 hamburger.classList.remove('active');
-                document.body.classList.remove('menu-open');
+                document.body.style.overflow = '';
             }
         });
         
@@ -36,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('click', function() {
                 navLinks.classList.remove('active');
                 hamburger.classList.remove('active');
-                document.body.classList.remove('menu-open');
+                document.body.style.overflow = '';
             });
         });
         
@@ -45,114 +204,28 @@ document.addEventListener('DOMContentLoaded', function() {
             if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
                 hamburger.classList.remove('active');
-                document.body.classList.remove('menu-open');
+                document.body.style.overflow = '';
             }
         });
     }
     
-    // Scroll Reveal Animation
+    // Scroll Animation
     const revealElements = document.querySelectorAll('.reveal');
     
-    function checkReveal() {
-        const triggerBottom = window.innerHeight * 0.8;
-        
+    function reveal() {
         revealElements.forEach(element => {
+            const windowHeight = window.innerHeight;
             const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150;
             
-            if (elementTop < triggerBottom) {
+            if (elementTop < windowHeight - elementVisible) {
                 element.classList.add('active');
-            } else if (elementTop > window.innerHeight) {
-                // Optional: Remove active class when scrolled out of view
-                // element.classList.remove('active');
             }
         });
     }
     
-    // Initial check on page load
-    setTimeout(checkReveal, 300);
-    
-    // Check on scroll
-    window.addEventListener('scroll', checkReveal);
-    
-    // Smooth scrolling for anchor links
-    const scrollLinks = document.querySelectorAll('a[href^="#"]');
-    scrollLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            
-            if (href === '#') return;
-            
-            e.preventDefault();
-            
-            const targetElement = document.querySelector(href);
-            if (targetElement) {
-                const headerOffset = 80; // Adjust based on your header height
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-    
-    // Navbar scroll effect
-    const navbar = document.querySelector('.navbar');
-    
-    function handleScroll() {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    }
-    
-    // Check on load
-    handleScroll();
-    
-    // Check on scroll
-    window.addEventListener('scroll', handleScroll);
-
-    // Touch swipe detection for sliders
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    const sliders = document.querySelectorAll('.slider, .carousel');
-    
-    sliders.forEach(slider => {
-        slider.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        }, {passive: true});
-        
-        slider.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe(slider);
-        }, {passive: true});
-    });
-    
-    function handleSwipe(slider) {
-        const swipeThreshold = 50;
-        const swipeDistance = touchEndX - touchStartX;
-        
-        if (Math.abs(swipeDistance) > swipeThreshold) {
-            // Find the next/prev buttons in this specific slider
-            const nextBtn = slider.querySelector('.next-btn, .carousel-next');
-            const prevBtn = slider.querySelector('.prev-btn, .carousel-prev');
-            
-            if (swipeDistance < 0 && nextBtn) {
-                // Swipe left - go next
-                nextBtn.click();
-            } else if (swipeDistance > 0 && prevBtn) {
-                // Swipe right - go prev
-                prevBtn.click();
-            }
-        }
-    }
-    
-    // Fast click for mobile
-    document.addEventListener('touchstart', function(){}, {passive: true});
+    window.addEventListener('scroll', reveal);
+    reveal(); // Initial check
     
     // Product Category Tabs
     const categoryTabs = document.querySelectorAll('.category-tab');
@@ -387,146 +460,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Product filtering
     // ... existing code ...
-});
-
-// Smooth Scrolling
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        const targetId = this.getAttribute('href');
-        if (targetId !== '#') {
-            e.preventDefault();
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        }
-    });
-});
-
-// Navbar Scroll Effect
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (navbar) {
-        if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-            navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-        } else {
-            navbar.style.background = 'var(--white)';
-            navbar.style.boxShadow = 'none';
-        }
-    }
-});
-
-// Scroll Reveal Animation
-const revealElements = document.querySelectorAll('.reveal');
-
-const revealOnScroll = () => {
-    revealElements.forEach(element => {
-        const elementTop = element.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-        
-        if (elementTop < windowHeight - 100) {
-            element.classList.add('active');
-        }
-    });
-};
-
-window.addEventListener('scroll', revealOnScroll);
-window.addEventListener('load', revealOnScroll);
-
-// Product Card Hover Effect
-const productCards = document.querySelectorAll('.product-card');
-
-productCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-10px)';
-        card.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.2)';
-    });
-
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0)';
-        card.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
-    });
-});
-
-// Counter Animation for Impact Stats
-const statCards = document.querySelectorAll('.stat-card h3');
-
-const animateValue = (element, start, end, duration) => {
-    let startTimestamp = null;
-    const step = (timestamp) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        const value = Math.floor(progress * (end - start) + start);
-        element.textContent = value + '+';
-        if (progress < 1) {
-            window.requestAnimationFrame(step);
-        }
-    };
-    window.requestAnimationFrame(step);
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const target = entry.target;
-            const value = parseInt(target.textContent);
-            animateValue(target, 0, value, 2000);
-            observer.unobserve(target);
-        }
-    });
-}, { threshold: 0.5 });
-
-statCards.forEach(card => observer.observe(card));
-
-// Hero Slideshow Functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const heroSlides = document.querySelectorAll('.hero-slide');
-    let currentSlide = 0;
-    
-    if (heroSlides.length > 0) {
-        // Make sure first slide is active
-        heroSlides.forEach(slide => slide.classList.remove('active'));
-        heroSlides[0].classList.add('active');
-        
-        function showSlide(index) {
-            // Hide all slides
-            heroSlides.forEach(slide => slide.classList.remove('active'));
-            
-            // Show the specified slide
-            heroSlides[index].classList.add('active');
-            currentSlide = index;
-        }
-        
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % heroSlides.length;
-            showSlide(currentSlide);
-        }
-        
-        // Change slide every 5 seconds
-        const slideInterval = setInterval(nextSlide, 5000);
-        
-        // Add event listeners to pause slideshow when interacting with hero section
-        const heroSection = document.querySelector('.hero');
-        if (heroSection) {
-            heroSection.addEventListener('mouseenter', () => {
-                clearInterval(slideInterval);
-            });
-            
-            heroSection.addEventListener('mouseleave', () => {
-                setInterval(nextSlide, 5000);
-            });
-        }
-    }
-});
-
-// Parallax Effect for Hero Section
-window.addEventListener('scroll', () => {
-    const hero = document.querySelector('.hero');
-    const scrolled = window.pageYOffset;
-    // We don't manipulate backgroundPositionY directly anymore since we're using slides
 });
 
 // Enhanced Timeline Animation - fixed version

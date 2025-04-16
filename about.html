@@ -9,6 +9,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <style>
+        .michael-image {
+            background-image: url('images/Michael%20Akuamoah-Boateng.jpeg');
+            background-size: cover;
+            background-position: top center;
+            background-repeat: no-repeat;
+        }
+    </style>
     <script>
         // Add js-enabled class to body when JavaScript is running
         document.addEventListener('DOMContentLoaded', function() {
@@ -38,10 +46,15 @@
     </nav>
 
     <!-- About Hero Section -->
-    <section class="page-hero" style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/founders.jpg') center/cover;">
+    <section class="page-hero" style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/tigernutflour.jpg') center/cover; height: 600px; display: flex; align-items: center;">
         <div class="hero-content">
             <h1>About Us</h1>
-            <p>Learn about our mission and vision</p>
+            <p class="hero-subtitle">Transforming Agriculture, Empowering Communities</p>
+            <p class="hero-description">Mosaic Grove is a Ghanaian agribusiness dedicated to sustainable farming practices and community empowerment through innovative agricultural solutions.</p>
+            <div class="hero-buttons">
+                <a href="#timeline" class="hero-button primary">Our Journey</a>
+                <a href="#team" class="hero-button secondary">Meet Our Team</a>
+            </div>
         </div>
     </section>
 
@@ -74,7 +87,7 @@
     </section>
 
     <!-- Timeline Section -->
-    <section class="timeline-section">
+    <section class="timeline-section" id="timeline">
         <div class="leaf-decoration leaf-1"><i class="fas fa-leaf"></i></div>
         <div class="leaf-decoration leaf-2"><i class="fas fa-seedling"></i></div>
         <div class="leaf-decoration leaf-3"><i class="fas fa-leaf"></i></div>
@@ -86,8 +99,8 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <span class="timeline-year">2019</span>
-                        <h3>Our Beginning</h3>
-                        <p>Mosaic Grove was founded by Dr. Kaadze Wright with a vision to revolutionize sustainable agriculture in Ghana.</p>
+                        <h3>The Idea Takes Root</h3>
+                        <p>Dr. Kaadze Wright returns to Ghana after studying agricultural science abroad and identifies the potential for sustainable cashew and tiger nut farming in the Eastern Afram Plains.</p>
                         <div class="timeline-image" style="background-image: url('images/dr. wright.jpeg');"></div>
                     </div>
                 </div>
@@ -136,12 +149,13 @@
                         <div class="timeline-image" style="background-image: url('images/products-header.jpg');"></div>
                     </div>
                 </div>
-                <div class="timeline-item reveal stagger-item">
+                <div class="timeline-item animate">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <span class="timeline-year">2025</span>
-                        <h3>Vision for the Future</h3>
-                        <p>Expansion plans include opening our sustainable farming practices center, launching an agricultural innovation lab, and expanding our market presence across West Africa.</p>
+                        <h3>Future Vision</h3>
+                        <p>Plans to establish a Sustainable Farming Innovation Center that will serve as a hub for research, education, and community development across West Africa.</p>
+                        <div class="timeline-image" style="background-image: url('images/tiger.jpg');"></div>
                     </div>
                 </div>
             </div>
@@ -149,21 +163,30 @@
     </section>
 
     <!-- Mission & Vision Section -->
-    <section class="mission-vision-section">
+    <section class="mission-vision">
         <div class="container">
-            <div class="mission-vision-content">
-                <div class="mission-box reveal fade-in-up">
-                    <h2>Our Mission</h2>
-                    <p>To revolutionize agricultural practices in West Africa by promoting sustainable farming techniques that enhance productivity while preserving natural resources and empowering local communities.</p>
-                    <div class="mission-icon pulse">
-                        <i class="fas fa-seedling"></i>
-                    </div>
+            <div class="section-intro">
+                <h2>Our Purpose</h2>
+                <p>At Mosaic Grove, we are guided by clear principles that drive everything we do</p>
+            </div>
+            <div class="mission-vision-grid">
+                <div class="mission-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Our Mission</h3>
+                    <p>To empower women and youth through sustainable farming practices, creating economic opportunities while preserving the environment for future generations.</p>
+                    <ul class="mission-points">
+                        <li><i class="fas fa-check-circle"></i> Provide training in sustainable agriculture</li>
+                        <li><i class="fas fa-check-circle"></i> Create market access for small-scale farmers</li>
+                        <li><i class="fas fa-check-circle"></i> Implement environmentally-friendly practices</li>
+                        <li><i class="fas fa-check-circle"></i> Support women's economic empowerment</li>
+                    </ul>
                 </div>
-                <div class="vision-box reveal fade-in-up delay-200">
-                    <h2>Our Vision</h2>
-                    <p>To become the leading sustainable agribusiness in West Africa, known for quality products, environmental stewardship, and positive social impact on farming communities.</p>
-                    <div class="vision-icon pulse">
-                        <i class="fas fa-eye"></i>
+                <div class="vision-card">
+                    <i class="fas fa-eye"></i>
+                    <h3>Our Vision</h3>
+                    <p>To be a leading force in sustainable agriculture in Ghana, transforming rural communities through innovative farming practices and community development.</p>
+                    <div class="vision-image">
+                        <img src="images/cashews.jpg" alt="Sustainable farming" style="width: 100%; border-radius: 8px; margin-top: 20px;">
                     </div>
                 </div>
             </div>
@@ -171,81 +194,106 @@
     </section>
 
     <!-- Values Section -->
-    <section class="values-section">
+    <section class="values" style="background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('images/tiger.jpg') center/cover; background-attachment: fixed;">
         <div class="container">
-            <h2 class="reveal">Our Core Values</h2>
-            <p class="section-subtitle reveal">The principles that guide our operations</p>
-            <div class="values-carousel stagger-container">
-                <div class="value-card reveal stagger-item">
-                    <div class="value-icon"><i class="fas fa-leaf"></i></div>
-                    <h3>Sustainability</h3>
-                    <p>We're committed to agricultural practices that sustain both the environment and communities for generations to come.</p>
-                </div>
-                <div class="value-card reveal stagger-item">
-                    <div class="value-icon"><i class="fas fa-handshake"></i></div>
-                    <h3>Integrity</h3>
-                    <p>We operate with honesty and transparency in all our dealings with farmers, partners, and customers.</p>
-                </div>
-                <div class="value-card reveal stagger-item">
-                    <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
-                    <h3>Innovation</h3>
-                    <p>We constantly seek new ways to improve our farming methods, processing techniques, and business model.</p>
-                </div>
-                <div class="value-card reveal stagger-item">
-                    <div class="value-icon"><i class="fas fa-users"></i></div>
-                    <h3>Community</h3>
-                    <p>We believe in the power of community and work to ensure our success translates to prosperity for all stakeholders.</p>
-                </div>
-                <div class="value-card reveal stagger-item">
-                    <div class="value-icon"><i class="fas fa-chart-line"></i></div>
-                    <h3>Excellence</h3>
-                    <p>We strive for excellence in everything we do, from the quality of our products to the impact of our programs.</p>
+            <h2>Our Core Values</h2>
+            <p class="section-subtitle">These principles guide our daily operations and long-term strategy</p>
+            <div class="values-carousel-container">
+                <div class="values-carousel">
+                    <div class="value-card">
+                        <i class="fas fa-leaf"></i>
+                        <h3>Sustainability</h3>
+                        <p>We are committed to farming practices that protect and enhance our environment for future generations.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-handshake"></i>
+                        <h3>Community</h3>
+                        <p>We believe in the power of community and work to strengthen local relationships through collaboration.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Growth</h3>
+                        <p>We are dedicated to continuous improvement and innovation in our agricultural practices.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-heart"></i>
+                        <h3>Empowerment</h3>
+                        <p>We strive to empower women and youth through education, training and economic opportunity.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-globe-africa"></i>
+                        <h3>Heritage</h3>
+                        <p>We honor and preserve traditional African agricultural knowledge while embracing innovation.</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-balance-scale"></i>
+                        <h3>Fairness</h3>
+                        <p>We ensure fair practices in all our dealings with farmers, employees and business partners.</p>
+                    </div>
                 </div>
             </div>
             <div class="carousel-controls">
-                <button class="carousel-prev touch-feedback"><i class="fas fa-chevron-left"></i></button>
-                <button class="carousel-next touch-feedback"><i class="fas fa-chevron-right"></i></button>
+                <button class="carousel-control prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+                <div class="carousel-indicators">
+                    <span class="indicator active"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
+                </div>
+                <button class="carousel-control next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
 
     <!-- Team Section -->
-    <section class="team-section" id="team">
+    <section class="team" id="team">
         <div class="container">
-            <h2 class="reveal">Meet Our Team</h2>
-            <p class="section-subtitle reveal">The people behind our success</p>
-            <div class="featured-team-member reveal">
-                <div class="team-member-image" style="background-image: url('images/dr. wright.jpeg');"></div>
-                <div class="team-member-info">
+            <h2>Meet Our Team</h2>
+            <p class="section-subtitle">The dedicated individuals behind Mosaic Grove</p>
+            
+            <div class="featured-team-member">
+                <div class="featured-member-img" style="background-image: url('images/dr. wright.jpeg');"></div>
+                <div class="featured-member-info">
                     <h3>Dr. Kaadze Wright</h3>
-                    <span class="team-title">Founder & CEO</span>
-                    <p class="team-bio">Dr. Wright holds a PhD in Agricultural Sciences from the University of California, Davis. After completing his studies abroad, he returned to Ghana with a vision to transform local agriculture through sustainable practices and community engagement.</p>
-                    <blockquote class="team-quote fade-in-up">"Our goal is not just to build a successful business, but to create a model that proves sustainable agriculture can drive economic growth and community development in Africa."</blockquote>
-                    <div class="team-social stagger-container">
-                        <a href="#" class="social-link touch-feedback stagger-item"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link touch-feedback stagger-item"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link touch-feedback stagger-item"><i class="fas fa-envelope"></i></a>
+                    <p class="member-title">Founder & CEO</p>
+                    <p class="member-bio">Dr. Kaadze Wright is an agricultural scientist with over 15 years of experience in sustainable farming. She has dedicated her career to transforming rural communities through agricultural innovation and women's empowerment.</p>
+                    <div class="member-quote">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"Our greatest achievement is seeing the communities we work with thrive and become self-sufficient."</p>
+                    </div>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="team-grid reveal stagger-container">
-                <div class="team-card stagger-item">
-                    <div class="team-image" style="background-image: url('images/manager.jpg');"></div>
-                    <h4>Rhoda Awo Korkoi Ogunu</h4>
-                    <span class="team-position">Operations Manager</span>
-                    <p>With over 10 years in agricultural operations, Rhoda ensures our farms and processing facilities run efficiently.</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-image" style="background-image: url('images/manager.jpg');"></div>
+                    <div class="member-info">
+                        <h3>Rhoda Ogunu</h3>
+                        <p class="member-title">Farm Manager</p>
+                        <p>With 10+ years of experience in agricultural management, Rhoda oversees all farming operations.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
                 </div>
-                <div class="team-card stagger-item">
-                    <div class="team-image" style="background-image: url('images/w1.jpg');"></div>
-                    <h4>Adwoa Boateng</h4>
-                    <span class="team-position">Community Relations</span>
-                    <p>Adwoa builds strong relationships with our farmer networks and local communities.</p>
-                </div>
-                <div class="team-card stagger-item">
-                    <div class="team-image" style="background-image: url('images/nn.jpg');"></div>
-                    <h4>Kwame Osei</h4>
-                    <span class="team-position">Head of R&D</span>
-                    <p>Kwame leads our research efforts, developing improved cultivation and processing methods.</p>
+                <div class="team-member">
+                    <div class="member-image" style="padding: 0; overflow: hidden;">
+                        <img src="images/Michael Akuamoah-Boateng.jpeg" alt="Michael Akuamoah-Boateng" style="width: 100%; height: 100%; object-fit: cover; object-position: top center;">
+                    </div>
+                    <div class="member-info">
+                        <h3>Michael Akuamoah-Boateng</h3>
+                        <p class="member-title">Expert Horticulturist</p>
+                        <p>Michael brings specialized knowledge in plant cultivation and sustainable farming techniques to our agricultural operations.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -254,66 +302,87 @@
     <!-- Partners Section -->
     <section class="partners-section">
         <div class="container">
-            <h2 class="reveal">Our Partners</h2>
-            <p class="section-subtitle reveal">Collaborating for greater impact</p>
-            <div class="partners-grid stagger-container">
-                <div class="partner-logo stagger-item"><img src="images/logo-placeholder.png" alt="Partner"></div>
-                <div class="partner-logo stagger-item"><img src="images/logo-placeholder.png" alt="Partner"></div>
-                <div class="partner-logo stagger-item"><img src="images/logo-placeholder.png" alt="Partner"></div>
-                <div class="partner-logo stagger-item"><img src="images/logo-placeholder.png" alt="Partner"></div>
-                <div class="partner-logo stagger-item"><img src="images/logo-placeholder.png" alt="Partner"></div>
+            <h2>Our Partners</h2>
+            <p class="section-subtitle">Organizations we collaborate with to maximize our impact</p>
+            <div class="partners-grid">
+                <div class="partner-logo">
+                    <img src="images/mosaic%20groove.png" alt="Partner Logo">
+                    <p>Ghana Agricultural Association</p>
+                </div>
+                <div class="partner-logo">
+                    <img src="images/mosaic%20groove.png" alt="Partner Logo">
+                    <p>Women in Farming Initiative</p>
+                </div>
+                <div class="partner-logo">
+                    <img src="images/mosaic%20groove.png" alt="Partner Logo">
+                    <p>Sustainable Agriculture Network</p>
+                </div>
+                <div class="partner-logo">
+                    <img src="images/mosaic%20groove.png" alt="Partner Logo">
+                    <p>Youth Development Fund</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section reveal">
+    <section class="about-cta">
         <div class="container">
-            <h2 class="fade-in-up">Join Our Journey</h2>
-            <p class="fade-in-up delay-200">Whether you're a potential partner, customer, or just interested in our work, we'd love to connect with you.</p>
-            <a href="contact.html" class="cta-button fade-in-up delay-300 touch-feedback">Get In Touch</a>
+            <div class="cta-content">
+                <h2>Join Our Mission</h2>
+                <p>Be part of our journey to transform communities through sustainable agriculture</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="cta-button">Get Involved</a>
+                    <a href="products.html" class="cta-button secondary">Explore Products</a>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <h2>Mosaic Grove</h2>
-                    <p>Transforming Agriculture, Empowering Communities</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <a href="index.html">Home</a>
-                    <a href="about.html">About</a>
-                    <a href="products.html">Products</a>
-                    <a href="impact.html">Impact</a>
-                    <a href="blog.html">Blog</a>
-                    <a href="contact.html">Contact</a>
-                </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Mosaic Grove</h3>
+                <p>Empowering communities through sustainable farming</p>
                 <div class="footer-contact">
-                    <h4>Contact Us</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> 123 Agro Lane, Accra, Ghana</p>
-                    <p><i class="fas fa-phone"></i> +233 20 123 4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Eastern Afram Plains, Ghana</p>
+                    <p><i class="fas fa-phone"></i> +233 123 456 789</p>
                     <p><i class="fas fa-envelope"></i> info@mosaicgrove.com</p>
                 </div>
-                <div class="footer-social">
-                    <h4>Follow Us</h4>
-                    <div class="social-icons">
-                        <a href="#" class="touch-feedback"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="touch-feedback"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="touch-feedback"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="touch-feedback"><i class="fab fa-linkedin"></i></a>
-                    </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="products.html">Products</a>
+                <a href="impact.html">Impact</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Subscribe to Our Newsletter</h4>
+                    <form>
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 Mosaic Grove. All rights reserved.</p>
-            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Mosaic Grove. All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="js/scripts.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/about.js"></script>
 </body>
-</html>
+</html> 
