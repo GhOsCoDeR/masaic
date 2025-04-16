@@ -318,17 +318,21 @@ body {
 
 /* Products Section */
 .products {
-    padding: 80px 0;
+    padding: 80px 5%;
+    text-align: center;
 }
 
 .products h2 {
     color: var(--primary-color);
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    position: relative;
+    display: inline-block;
 }
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 30px;
     margin-top: 50px;
 }
@@ -339,11 +343,14 @@ body {
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
 }
 
 .product-image {
@@ -351,6 +358,23 @@ body {
     background-size: cover;
     background-position: center;
     position: relative;
+}
+
+/* Add background images for each product card */
+.product-card:nth-child(1) .product-image {
+    background-image: url('../images/cashews.jpg');
+}
+
+.product-card:nth-child(2) .product-image {
+    background-image: url('../images/tiger.jpg');
+}
+
+.product-card:nth-child(3) .product-image {
+    background-image: url('../images/tigernutflour.jpg');
+}
+
+.product-card:nth-child(4) .product-image {
+    background-image: url('../images/dragonfruit.jpg');
 }
 
 .product-label {
@@ -453,6 +477,22 @@ body {
 
 .product-info {
     padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+
+.product-card p {
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    flex-grow: 1;
 }
 
 .product-features {
@@ -2995,4 +3035,79 @@ button[type="submit"]:hover {
         transform: scale(1);
         box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0);
     }
-} 
+}
+
+.product-info .cta-button {
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-block;
+    text-decoration: none;
+    margin-top: auto;
+    align-self: flex-start;
+}
+
+.product-info .cta-button:hover {
+    background: var(--accent-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.products .section-subtitle {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #666;
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Impact Page Styles */
+.impact-hero {
+    height: 500px;
+    background-image: url('../images/our impact.jpeg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+}
+
+.impact-hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.impact-hero-content {
+    max-width: 800px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.impact-hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.impact-hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
