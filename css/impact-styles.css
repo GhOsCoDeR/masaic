@@ -12,7 +12,7 @@
 .impact-hero {
     position: relative;
     height: 600px;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/our impact.jpeg') center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/our%20impact.jpeg') center/cover;
     color: var(--white);
     overflow: hidden;
 }
@@ -1005,15 +1005,55 @@
 }
 
 @media (max-width: 768px) {
+    .impact-hero {
+        height: 500px;
+    }
+    
+    .impact-hero-content {
+        padding-top: 150px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
     .impact-hero h1 {
-        font-size: 2.8rem;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
     }
     
     .impact-hero p {
         font-size: 1.1rem;
+        margin-bottom: 1.5rem;
     }
     
-    .programs-grid, .impact-grid, .stories-grid {
+    .impact-stats-section {
+        padding: 60px 20px;
+    }
+    
+    .impact-stats-section h2 {
+        font-size: 2rem;
+    }
+    
+    .stat-card h3 {
+        font-size: 2.8rem;
+    }
+    
+    .success-stories {
+        padding: 60px 20px;
+    }
+    
+    .success-stories h2 {
+        font-size: 2rem;
+    }
+    
+    .stories-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .story-card {
+        margin-bottom: 20px;
+    }
+    
+    .programs-grid, .impact-grid {
         grid-template-columns: 1fr;
     }
     
@@ -1021,12 +1061,20 @@
         grid-template-columns: repeat(2, 1fr);
     }
     
-    .stat-card h3 {
-        font-size: 2.8rem;
+    .impact-map h2 {
+        font-size: 1.8rem;
     }
     
-    .sdg-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .impact-testimonials h2 {
+        font-size: 1.8rem;
+    }
+    
+    .sdg-goals h2 {
+        font-size: 1.8rem;
+    }
+    
+    .section-subtitle {
+        font-size: 0.95rem;
     }
     
     .map-legend {
@@ -1043,20 +1091,66 @@
 }
 
 @media (max-width: 576px) {
+    .impact-hero {
+        height: 400px;
+    }
+    
+    .impact-hero-content {
+        padding-top: 120px;
+    }
+    
     .impact-hero h1 {
-        font-size: 2.4rem;
+        font-size: 2rem;
+    }
+    
+    .impact-hero p {
+        font-size: 1rem;
+    }
+    
+    .impact-hero::before {
+        height: 70px;
+        background-size: 100% 70px;
+    }
+    
+    .impact-stats-section h2,
+    .success-stories h2,
+    .community-programs h2,
+    .environmental-impact h2,
+    .impact-map h2,
+    .impact-testimonials h2,
+    .sdg-goals h2 {
+        font-size: 1.8rem;
+    }
+    
+    .section-subtitle {
+        font-size: 0.95rem;
     }
     
     .stat-card {
         padding: 1.5rem;
     }
     
-    .impact-stats {
+    .stat-card h3 {
+        font-size: 2.3rem;
+    }
+    
+    .story-image {
+        height: 180px;
+    }
+    
+    .story-content {
+        padding: 1.5rem;
+    }
+    
+    .programs-grid,
+    .impact-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
     
     .cta-buttons {
         flex-direction: column;
+        gap: 15px;
     }
     
     .sdg-grid {

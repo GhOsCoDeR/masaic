@@ -1,19 +1,233 @@
-// Mobile Menu Toggle
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
+// Mobile Navigation - Fixed and Enhanced
+document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    const navLinksItems = document.querySelectorAll('.nav-links a');
+    
+    if (hamburger && navLinks) {
+        // Toggle navigation menu with improved handling
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent event bubbling
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            
+            // Prevent scrolling when menu is open
+            if (navLinks.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = navLinks.contains(event.target);
+            const isClickOnHamburger = hamburger.contains(event.target);
+            
+            if (navLinks.classList.contains('active') && !isClickInsideNav && !isClickOnHamburger) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Close menu when a link is clicked
+        navLinksItems.forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+});
 
-hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    hamburger.classList.toggle('active');
+// Ensure mobile menu also works on About and Blog pages
+// This is needed because those pages may have their own JavaScript that conflicts
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we're on About or Blog page by looking for specific elements
+    const isAboutPage = document.querySelector('.about-section') !== null;
+    const isBlogPage = document.querySelector('.blog-hero') !== null;
+    
+    if (isAboutPage || isBlogPage) {
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (hamburger && navLinks) {
+            // Remove any existing click event listeners (to avoid conflicts)
+            const newHamburger = hamburger.cloneNode(true);
+            hamburger.parentNode.replaceChild(newHamburger, hamburger);
+            
+            // Add our event listener
+            newHamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                navLinks.classList.toggle('active');
+                newHamburger.classList.toggle('active');
+                
+                if (navLinks.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+    }
+    
+    // Add About page specific functionality that was previously inline
+    if (isAboutPage) {
+        // Add js-enabled class to body
+        document.body.classList.add('js-enabled');
+        
+        // Timeline animations
+        const timelineItems = document.querySelectorAll('.timeline-item.animate');
+        
+        function checkTimeline() {
+            timelineItems.forEach(item => {
+                const itemTop = item.getBoundingClientRect().top;
+                const triggerPoint = window.innerHeight * 0.8;
+                
+                if (itemTop < triggerPoint) {
+                    item.classList.add('active');
+                }
+            });
+        }
+        
+        // Check timeline on scroll
+        window.addEventListener('scroll', checkTimeline);
+        
+        // Initial check
+        checkTimeline();
+        
+        // Values carousel functionality
+        const valueCards = document.querySelectorAll('.value-card');
+        const prevButton = document.querySelector('.carousel-control.prev');
+        const nextButton = document.querySelector('.carousel-control.next');
+        const indicators = document.querySelectorAll('.indicator');
+        let activeIndex = 0;
+        
+        function updateCarousel() {
+            if (!valueCards.length) return;
+            
+            const cardWidth = valueCards[0].offsetWidth;
+            const carousel = document.querySelector('.values-carousel');
+            const offset = -activeIndex * (cardWidth + 24); // Includes gap
+            
+            if (carousel) {
+                carousel.style.transform = `translateX(${offset}px)`;
+            
+                // Update active classes
+                valueCards.forEach(card => card.classList.remove('active'));
+                if (valueCards[activeIndex]) {
+                    valueCards[activeIndex].classList.add('active');
+                }
+                
+                // Update indicators
+                indicators.forEach((ind, index) => {
+                    ind.classList.toggle('active', index === activeIndex);
+                });
+            }
+        }
+        
+        // Initialize carousel
+        window.addEventListener('resize', updateCarousel);
+        updateCarousel();
+        
+        // Event listeners for navigation
+        if (prevButton && nextButton) {
+            prevButton.addEventListener('click', () => {
+                activeIndex = Math.max(0, activeIndex - 1);
+                updateCarousel();
+            });
+            
+            nextButton.addEventListener('click', () => {
+                activeIndex = Math.min(valueCards.length - 1, activeIndex + 1);
+                updateCarousel();
+            });
+            
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    activeIndex = index;
+                    updateCarousel();
+                });
+            });
+        }
+        
+        // Keyboard accessibility for hamburger menu
+        const hamburger = document.querySelector('.hamburger');
+        if (hamburger) {
+            hamburger.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    hamburger.click();
+                }
+            });
+        }
+        
+        // Close menu when escape key is pressed
+        document.addEventListener('keydown', function(e) {
+            const navLinks = document.querySelector('.nav-links');
+            if (e.key === 'Escape' && navLinks && navLinks.classList.contains('active')) {
+                hamburger.click();
+            }
+        });
+    }
+    
+    // Add Blog page specific functionality that was previously inline
+    if (isBlogPage) {
+        // Category filter functionality
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Here you would typically filter the posts based on category
+                // For demo purposes we'll just log to console
+                console.log(`Filtering by: ${this.textContent}`);
+                
+                // Future implementation: Filter posts based on category
+                // const category = this.textContent.trim();
+                // const posts = document.querySelectorAll('.blog-post');
+                // posts.forEach(post => {
+                //     const postCategory = post.querySelector('.post-category').textContent;
+                //     if (category === 'All' || postCategory === category) {
+                //         post.style.display = 'block';
+                //     } else {
+                //         post.style.display = 'none';
+                //     }
+                // });
+            });
+        });
+    }
 });
 
 // Smooth Scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        
+        // Check if the target element exists before scrolling
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+            targetElement.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
     });
 });
 
@@ -156,310 +370,6 @@ window.addEventListener('scroll', () => {
     const hero = document.querySelector('.hero');
     const scrolled = window.pageYOffset;
     // We don't manipulate backgroundPositionY directly anymore since we're using slides
-});
-
-// Mobile Navigation Toggle - Enhanced
-document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    const navLinksItems = document.querySelectorAll('.nav-links a');
-    
-    if (hamburger && navLinks) {
-        // Toggle navigation menu
-        hamburger.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-            hamburger.classList.toggle('active');
-            
-            // Prevent scrolling when menu is open
-            if (navLinks.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const isClickInsideNav = navLinks.contains(event.target);
-            const isClickOnHamburger = hamburger.contains(event.target);
-            
-            if (navLinks.classList.contains('active') && !isClickInsideNav && !isClickOnHamburger) {
-                navLinks.classList.remove('active');
-                hamburger.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-        
-        // Close menu when a link is clicked
-        navLinksItems.forEach(link => {
-            link.addEventListener('click', function() {
-                navLinks.classList.remove('active');
-                hamburger.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
-        
-        // Close menu on window resize (if desktop view is triggered)
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-                hamburger.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-    }
-    
-    // Scroll Animation
-    const revealElements = document.querySelectorAll('.reveal');
-    
-    function reveal() {
-        revealElements.forEach(element => {
-            const windowHeight = window.innerHeight;
-            const elementTop = element.getBoundingClientRect().top;
-            const elementVisible = 150;
-            
-            if (elementTop < windowHeight - elementVisible) {
-                element.classList.add('active');
-            }
-        });
-    }
-    
-    window.addEventListener('scroll', reveal);
-    reveal(); // Initial check
-    
-    // Product Category Tabs
-    const categoryTabs = document.querySelectorAll('.category-tab');
-    if (categoryTabs.length > 0) {
-        categoryTabs.forEach(tab => {
-            tab.addEventListener('click', function() {
-                categoryTabs.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                const category = this.getAttribute('data-category');
-                // Add filtering logic here if needed
-            });
-        });
-    }
-    
-    // Nutrition Tabs
-    const nutritionTabs = document.querySelectorAll('.nutrition-tab');
-    if (nutritionTabs.length > 0) {
-        nutritionTabs.forEach(tab => {
-            tab.addEventListener('click', function() {
-                nutritionTabs.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                const product = this.getAttribute('data-product');
-                // Add nutrition data switching logic here
-            });
-        });
-    }
-    
-    // Product Size Options
-    const sizeOptions = document.querySelectorAll('.size-option');
-    if (sizeOptions.length > 0) {
-        sizeOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                const parent = this.closest('.size-options');
-                parent.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-    }
-    
-    // Blog Category Filters
-    const categoryFilters = document.querySelectorAll('.category-btn');
-    if (categoryFilters.length > 0) {
-        categoryFilters.forEach(filter => {
-            filter.addEventListener('click', function() {
-                categoryFilters.forEach(f => f.classList.remove('active'));
-                this.classList.add('active');
-                const category = this.getAttribute('data-category');
-                // Add post filtering logic here if needed
-            });
-        });
-    }
-    
-    // Map Initialization (for Contact page)
-    function initMap() {
-        // Coordinates for a location in Ghana (example: Accra)
-        const mosaicLocation = { lat: 5.6037, lng: -0.1870 };
-        
-        // Create map centered at Mosaic Grove location
-        const map = new google.maps.Map(document.getElementById("map"), {
-            zoom: 15,
-            center: mosaicLocation,
-            styles: [
-                {
-                    "featureType": "all",
-                    "elementType": "geometry",
-                    "stylers": [{"color": "#f5f5f5"}]
-                },
-                {
-                    "featureType": "water",
-                    "elementType": "geometry",
-                    "stylers": [{"color": "#c9c9c9"}]
-                },
-                {
-                    "featureType": "water",
-                    "elementType": "labels.text.fill",
-                    "stylers": [{"color": "#9e9e9e"}]
-                }
-            ]
-        });
-        
-        // Add marker for Mosaic Grove location
-        const marker = new google.maps.Marker({
-            position: mosaicLocation,
-            map: map,
-            title: "Mosaic Grove",
-            animation: google.maps.Animation.DROP
-        });
-        
-        // Add info window
-        const infowindow = new google.maps.InfoWindow({
-            content: `
-                <div class="map-info-window">
-                    <h3>Mosaic Grove</h3>
-                    <p>Sustainable Agriculture Hub</p>
-                    <p>123 Farm Road, Accra, Ghana</p>
-                </div>
-            `
-        });
-        
-        // Open info window when marker is clicked
-        marker.addListener("click", () => {
-            infowindow.open(map, marker);
-        });
-    }
-    
-    // Load map when the page is contact.html
-    if (window.location.pathname.includes('contact')) {
-        // Check if Google Maps API is loaded
-        if (typeof google !== 'undefined') {
-            initMap();
-        } else {
-            // If not loaded yet, wait for it
-            window.initMap = initMap;
-        }
-    }
-    
-    // Add to Cart functionality
-    const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
-    if (addToCartBtns.length > 0) {
-        addToCartBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                // Add to cart animation or notification
-                alert('Product added to cart!');
-            });
-        });
-    }
-    
-    // Wishlist toggle
-    const wishlistBtns = document.querySelectorAll('.wishlist-btn');
-    if (wishlistBtns.length > 0) {
-        wishlistBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                // Toggle wishlist heart
-                const heart = this.querySelector('i');
-                heart.classList.toggle('far');
-                heart.classList.toggle('fas');
-            });
-        });
-    }
-    
-    // Timeline animation (if on About page)
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    if (timelineItems.length > 0) {
-        window.addEventListener('scroll', function() {
-            timelineItems.forEach(item => {
-                const itemTop = item.getBoundingClientRect().top;
-                if (itemTop < window.innerHeight * 0.8) {
-                    item.classList.add('animate');
-                }
-            });
-        });
-    }
-
-    // Add "active" class to current page in navigation
-    const currentLocation = window.location.pathname;
-    const headerNavLinks = document.querySelectorAll('.nav-links a');
-    
-    headerNavLinks.forEach(link => {
-        if (link.getAttribute('href') === currentLocation.split('/').pop() || 
-            (link.getAttribute('href') === 'index.html' && (currentLocation === '/' || currentLocation.endsWith('/')))) {
-            link.classList.add('active');
-        }
-    });
-
-    // Mobile menu toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinksContainer = document.querySelector('.nav-links');
-    
-    if (menuToggle) {
-        menuToggle.addEventListener('click', () => {
-            navLinksContainer.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-        });
-    }
-
-    // Contact form handling
-    const contactForm = document.getElementById('contact-form');
-    const formMessageContainer = document.getElementById('form-message');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form fields
-            const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
-            const messageInput = document.getElementById('message');
-            
-            // Basic validation
-            if (!nameInput.value || !emailInput.value || !messageInput.value) {
-                showMessage('Please fill in all required fields.', 'error');
-                return;
-            }
-            
-            // Email validation
-            if (!isValidEmail(emailInput.value)) {
-                showMessage('Please enter a valid email address.', 'error');
-                return;
-            }
-            
-            // Simulate form submission success
-            // In a real application, you would send the form data to a server here
-            setTimeout(() => {
-                showMessage('Your message has been sent successfully! We will get back to you soon.', 'success');
-                contactForm.reset();
-            }, 1000);
-        });
-    }
-    
-    function showMessage(message, type) {
-        if (formMessageContainer) {
-            formMessageContainer.textContent = message;
-            formMessageContainer.className = 'form-message';
-            formMessageContainer.classList.add(`form-message-${type}`);
-            formMessageContainer.style.display = 'block';
-            
-            // Auto hide message after 5 seconds
-            setTimeout(() => {
-                formMessageContainer.style.opacity = '0';
-                setTimeout(() => {
-                    formMessageContainer.style.display = 'none';
-                    formMessageContainer.style.opacity = '1';
-                }, 500);
-            }, 5000);
-        }
-    }
-    
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
-
-    // Product filtering
-    // ... existing code ...
 });
 
 // Enhanced Timeline Animation - fixed version
