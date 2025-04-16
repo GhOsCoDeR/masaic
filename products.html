@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products - Mosaic Grove</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/product-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Mosaic Grove</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="products.html" class="active">Products</a>
+            <a href="impact.html">Impact</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Products Hero Section -->
+    <section class="page-hero" style="background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/products-header.jpg') center/cover;">
+        <div class="hero-content">
+            <h1>Our Products</h1>
+            <p>Discover our range of organic and sustainable products</p>
+        </div>
+    </section>
+
+    <!-- Product Categories -->
+    <section class="product-categories">
+        <div class="container">
+            <div class="category-tabs">
+                <button class="category-tab active" data-category="all">All Products</button>
+                <button class="category-tab" data-category="cashews">Cashews</button>
+                <button class="category-tab" data-category="tiger-nuts">Tiger Nuts</button>
+                <button class="category-tab" data-category="plant-based">Plant-Based</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Product -->
+    <section class="featured-product">
+        <div class="container">
+            <div class="product-badge">Featured Product</div>
+            <div class="featured-product-content">
+                <div class="featured-product-image" style="background-image: url('images/cashews.jpg');"></div>
+                <div class="featured-product-info">
+                    <h2>Premium Organic Cashews</h2>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.8/5 (120 reviews)</span>
+                    </div>
+                    <p class="product-description">Our signature product, grown sustainably in the Eastern Afram Plains of Ghana. These premium cashews are harvested at peak ripeness and carefully processed to preserve their natural flavor and nutritional benefits.</p>
+                    <div class="product-highlights">
+                        <div class="highlight-box">
+                            <i class="fas fa-leaf"></i>
+                            <h4>100% Organic</h4>
+                        </div>
+                        <div class="highlight-box">
+                            <i class="fas fa-seedling"></i>
+                            <h4>Sustainably Grown</h4>
+                        </div>
+                        <div class="highlight-box">
+                            <i class="fas fa-heart"></i>
+                            <h4>Heart Healthy</h4>
+                        </div>
+                    </div>
+                    <div class="product-pricing">
+                        <div class="price">
+                            <span class="regular-price">$12.99</span>
+                            <span class="sale-price">$9.99</span>
+                            <span class="unit">/ 250g</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                            <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Products Section -->
+    <section class="main-products">
+        <div class="container">
+            <h2 class="section-title">Our Signature Products</h2>
+            <p class="section-subtitle">Ethically sourced and sustainably produced</p>
+            
+            <div class="product-category">
+                <div class="product-detail">
+                    <div class="product-image" style="background-image: url('images/cashews.jpg');">
+                        <div class="product-label">Best Seller</div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category-label">Nuts</span>
+                        <h2>Organic Cashews</h2>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p>Our premium organic cashews are grown sustainably in the Eastern Afram Plains of Ghana. Rich in nutrients and flavor, these cashews are carefully harvested and processed to maintain their natural goodness.</p>
+                        <ul class="product-features">
+                            <li><i class="fas fa-check"></i> 100% Organic</li>
+                            <li><i class="fas fa-check"></i> Sustainably Grown</li>
+                            <li><i class="fas fa-check"></i> Rich in Nutrients</li>
+                            <li><i class="fas fa-check"></i> Premium Quality</li>
+                        </ul>
+                        <div class="product-sizes">
+                            <span class="size-label">Available Sizes:</span>
+                            <div class="size-options">
+                                <button class="size-option">100g</button>
+                                <button class="size-option active">250g</button>
+                                <button class="size-option">500g</button>
+                                <button class="size-option">1kg</button>
+                            </div>
+                        </div>
+                        <button class="cta-button">Order Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-category">
+                <div class="product-detail reverse">
+                    <div class="product-info">
+                        <span class="product-category-label">Tubers</span>
+                        <h2>Tiger Nuts</h2>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>Our nutrient-rich tiger nuts are grown using traditional farming methods. These small tubers are packed with health benefits and are a great source of fiber, vitamins, and minerals.</p>
+                        <ul class="product-features">
+                            <li><i class="fas fa-check"></i> High in Fiber</li>
+                            <li><i class="fas fa-check"></i> Rich in Vitamins</li>
+                            <li><i class="fas fa-check"></i> Gluten-Free</li>
+                            <li><i class="fas fa-check"></i> Natural Energy Source</li>
+                        </ul>
+                        <div class="product-sizes">
+                            <span class="size-label">Available Sizes:</span>
+                            <div class="size-options">
+                                <button class="size-option">100g</button>
+                                <button class="size-option active">250g</button>
+                                <button class="size-option">500g</button>
+                                <button class="size-option">1kg</button>
+                            </div>
+                        </div>
+                        <button class="cta-button">Order Now</button>
+                    </div>
+                    <div class="product-image" style="background-image: url('images/tiger.jpg');">
+                        <div class="product-label new">New Harvest</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nutritional Information -->
+    <section class="nutritional-info">
+        <div class="container">
+            <h2 class="section-title">Nutritional Benefits</h2>
+            <p class="section-subtitle">Our products are packed with essential nutrients</p>
+            
+            <div class="nutrition-tabs">
+                <button class="nutrition-tab active" data-product="cashews">Cashews</button>
+                <button class="nutrition-tab" data-product="tiger-nuts">Tiger Nuts</button>
+            </div>
+            
+            <div class="nutrition-content">
+                <div class="nutrition-chart">
+                    <div class="chart-header">
+                        <h3>Cashews Nutrition (per 100g)</h3>
+                    </div>
+                    <div class="chart-body">
+                        <div class="nutrition-item">
+                            <div class="nutrient">
+                                <h4>Calories</h4>
+                                <div class="nutrient-bar" style="width: 70%;">553 kcal</div>
+                            </div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrient">
+                                <h4>Protein</h4>
+                                <div class="nutrient-bar" style="width: 45%;">18g</div>
+                            </div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrient">
+                                <h4>Healthy Fats</h4>
+                                <div class="nutrient-bar" style="width: 60%;">44g</div>
+                            </div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrient">
+                                <h4>Fiber</h4>
+                                <div class="nutrient-bar" style="width: 35%;">3.3g</div>
+                            </div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrient">
+                                <h4>Magnesium</h4>
+                                <div class="nutrient-bar" style="width: 55%;">292mg</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nutrition-benefits">
+                    <div class="benefit-card">
+                        <i class="fas fa-heart"></i>
+                        <h4>Heart Health</h4>
+                        <p>Rich in monounsaturated and polyunsaturated fatty acids that support cardiovascular health.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-brain"></i>
+                        <h4>Brain Function</h4>
+                        <p>Contains vitamins and minerals that support cognitive function and brain health.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <i class="fas fa-bone"></i>
+                        <h4>Bone Health</h4>
+                        <p>Excellent source of minerals including magnesium, phosphorus, and calcium.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plant-Based Products Section -->
+    <section class="plant-based">
+        <div class="container">
+            <h2 class="section-title">Plant-Based Products</h2>
+            <p class="section-subtitle">Innovative and delicious alternatives</p>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('images/tigernutflour.jpg');">
+                        <div class="product-overlay">
+                            <div class="overlay-content">
+                                <a href="#" class="view-product">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card-content">
+                        <span class="product-category-label">Beverages</span>
+                        <h3>Tiger Nut Milk</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p>A delicious, dairy-free alternative packed with nutrients</p>
+                        <div class="product-price">
+                            <span class="price-amount">$5.99</span>
+                            <button class="product-button">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('images/tigernutflour.jpg');">
+                        <div class="product-label">New</div>
+                        <div class="product-overlay">
+                            <div class="overlay-content">
+                                <a href="#" class="view-product">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card-content">
+                        <span class="product-category-label">Desserts</span>
+                        <h3>Frozen Desserts</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p>Healthy, plant-based frozen treats made with tiger nuts</p>
+                        <div class="product-price">
+                            <span class="price-amount">$7.99</span>
+                            <button class="product-button">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('images/tigernutflour.jpg');">
+                        <div class="product-overlay">
+                            <div class="overlay-content">
+                                <a href="#" class="view-product">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card-content">
+                        <span class="product-category-label">Baking</span>
+                        <h3>Baked Goods</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>Delicious baked products using tiger nut flour</p>
+                        <div class="product-price">
+                            <span class="price-amount">$6.49</span>
+                            <button class="product-button">Learn More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="product-testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="testimonials-slider">
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"The organic cashews from Mosaic Grove are absolutely delicious! The quality is exceptional, and I love knowing they're ethically sourced."</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>Sarah J.</h4>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"I've been using tiger nut milk as a dairy alternative for months now. It's creamy, nutritious, and has a naturally sweet flavor that I love!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>Michael T.</h4>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title">Why Choose Our Products?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>Heart Health</h3>
+                    <p>Our products are rich in healthy fats and nutrients that support cardiovascular health.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>Brain Function</h3>
+                    <p>Packed with essential nutrients that support cognitive function and mental clarity.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-running"></i>
+                    <h3>Energy Boost</h3>
+                    <p>Natural source of energy without artificial additives or processed sugars.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Sustainable</h3>
+                    <p>Environmentally friendly products that support sustainable farming practices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="product-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Experience Our Products?</h2>
+                <p>Order now and enjoy free shipping on orders over $50</p>
+                <div class="cta-buttons">
+                    <a href="#" class="cta-button">Shop Now</a>
+                    <a href="contact.html" class="cta-button secondary">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Mosaic Grove</h3>
+                <p>Empowering communities through sustainable farming</p>
+                <div class="footer-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> Eastern Afram Plains, Ghana</p>
+                    <p><i class="fas fa-phone"></i> +233 123 456 789</p>
+                    <p><i class="fas fa-envelope"></i> info@mosaicgrove.com</p>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="products.html">Products</a>
+                <a href="impact.html">Impact</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Subscribe to Our Newsletter</h4>
+                    <form>
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Mosaic Grove. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/products.js"></script>
+</body>
+</html> 
