@@ -59,9 +59,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const isBlogPage = document.querySelector('.blog-hero') !== null;
     
     if (isAboutPage || isBlogPage) {
-        const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
-        
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('.nav-links');
+
         if (hamburger && navLinks) {
             // Remove any existing click event listeners (to avoid conflicts)
             const newHamburger = hamburger.cloneNode(true);
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add our event listener
             newHamburger.addEventListener('click', function(e) {
                 e.stopPropagation();
-                navLinks.classList.toggle('active');
+    navLinks.classList.toggle('active');
                 newHamburger.classList.toggle('active');
                 
                 if (navLinks.classList.contains('active')) {
@@ -225,8 +225,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         
         if (targetElement) {
             targetElement.scrollIntoView({
-                behavior: 'smooth'
-            });
+            behavior: 'smooth'
+        });
         }
     });
 });
