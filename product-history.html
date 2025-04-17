@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product History - Mosaic Grove</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Mosaic Grove</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="products.html">Products</a>
+            <a href="impact.html">Impact</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-icons">
+            <a href="#" class="cart-icon"><i class="fas fa-shopping-cart"></i></a>
+            <a href="#" class="wishlist-icon"><i class="far fa-heart"></i></a>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="hero-content">
+            <div class="hero-badge">Our Heritage</div>
+            <h1>Product History</h1>
+            <p class="hero-description">Discover the rich heritage and sustainable journey of our premium products, from farm to table.</p>
+        </div>
+    </section>
+
+    <!-- Product History Section -->
+    <section class="product-history-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Product Journey</h2>
+                <p>Learn about the origins, cultivation practices, and cultural significance of our products.</p>
+            </div>
+
+            <!-- History Tabs -->
+            <div class="history-tabs">
+                <button class="history-tab active" data-history="cashews">
+                    <i class="fas fa-seedling"></i>
+                    Premium Organic Cashews
+                </button>
+                <button class="history-tab" data-history="tiger-nuts">
+                    <i class="fas fa-leaf"></i>
+                    Tiger Nuts
+                </button>
+                <button class="history-tab" data-history="dragon-fruit">
+                    <i class="fas fa-apple-alt"></i>
+                    Dragon Fruit
+                </button>
+                <button class="history-tab" data-history="wambugu-apples">
+                    <i class="fas fa-apple-alt"></i>
+                    Wambugu Apples
+                </button>
+            </div>
+
+            <!-- History Content -->
+            <div class="history-content active" id="cashews-history">
+                <div class="timeline">
+                    <div class="timeline-item animate">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-year">Origins</span>
+                            <h3>The Cashew Legacy</h3>
+                            <p>Native to Brazil, cashews were first introduced to East Africa in the 16th century. Our premium cashews are sourced from sustainable farms in Tanzania, where the perfect climate and soil conditions create the ideal environment for cultivation.</p>
+                            <div class="timeline-image" style="background-image: url('images/cashew-origin.jpg')"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item animate">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-year">Cultivation</span>
+                            <h3>Sustainable Farming</h3>
+                            <p>Our partner farmers use traditional organic farming methods, ensuring the highest quality cashews while preserving the environment. Each tree is carefully tended to, and harvesting is done by hand to maintain the integrity of the nuts.</p>
+                            <div class="timeline-image" style="background-image: url('images/cashew-farming.jpg')"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item animate">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-year">Processing</span>
+                            <h3>Artisanal Processing</h3>
+                            <p>Our cashews undergo careful processing in our state-of-the-art facility, where traditional methods meet modern food safety standards. Each nut is inspected for quality before being carefully roasted to perfection.</p>
+                            <div class="timeline-image" style="background-image: url('images/cashew-processing.jpg')"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-content" id="tiger-nuts-history">
+                <div class="timeline">
+                    <div class="timeline-item animate">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-year">Heritage</span>
+                            <h3>Ancient Super-Tuber</h3>
+                            <p>Tiger nuts have been cultivated for thousands of years, dating back to ancient Egypt. These nutrient-rich tubers were a staple food source and were even found in ancient Egyptian tombs.</p>
+                            <div class="timeline-image" style="background-image: url('images/tigernut-heritage.jpg')"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item animate">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-year">Farming</span>
+                            <h3>Traditional Cultivation</h3>
+                            <p>Our tiger nuts are grown in the fertile soils of Ghana, where traditional farming methods have been passed down through generations. The unique climate and soil composition contribute to their exceptional quality and taste.</p>
+                            <div class="timeline-image" style="background-image: url('images/tigernut-farming.jpg')"></div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item animate">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-year">Innovation</span>
+                            <h3>Modern Applications</h3>
+                            <p>We've revolutionized the use of tiger nuts by creating innovative products like our signature tiger nut milk, flour, and snacks, while maintaining their traditional nutritional benefits.</p>
+                            <div class="timeline-image" style="background-image: url('images/tigernut-products.jpg')"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-content" id="dragon-fruit-history">
+                <!-- Dragon Fruit History Content -->
+                <div class="timeline">
+                    <div class="timeline-item animate">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-year">Origins</span>
+                            <h3>The Dragon's Tale</h3>
+                            <p>Dragon fruit, originally from Central America, has found a perfect growing environment in our East African farms. Our cultivation program began as part of our initiative to introduce sustainable exotic fruits to the region.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-content" id="wambugu-apples-history">
+                <!-- Wambugu Apples History Content -->
+                <div class="timeline">
+                    <div class="timeline-item animate">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-year">Innovation</span>
+                            <h3>A Kenyan Innovation</h3>
+                            <p>Named after their developer, Mr. Wambugu, these unique apples represent African agricultural innovation. They are specially adapted to grow in tropical climates, making them perfect for sustainable local farming.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@mosaicgrove.com</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <form class="footer-newsletter">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Mosaic Grove. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+</body>
+</html> 

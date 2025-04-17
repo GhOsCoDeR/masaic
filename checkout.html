@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Mosaic Grove</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/cart-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <style>
+        .checkout-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: 1;
+        }
+
+        .step.active:not(:last-child)::after {
+            background: #4CAF50;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step.active .step-number {
+            background: #4CAF50;
+        }
+
+        .step.completed .step-number {
+            background: #4CAF50;
+        }
+
+        .step-title {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .step.active .step-title {
+            color: #4CAF50;
+            font-weight: 600;
+        }
+
+        .checkout-section {
+            display: none;
+        }
+
+        .checkout-section.active {
+            display: block;
+        }
+
+        .step-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding: 1rem 0;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .step-buttons button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .prev-step {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .next-step {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .next-step:hover {
+            background: #45a049;
+        }
+
+        .prev-step:hover {
+            background: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Mosaic Grove</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="products.html">Products</a>
+            <a href="impact.html">Impact</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <section class="checkout-container">
+        <!-- Checkout Steps -->
+        <div class="checkout-steps">
+            <div class="step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-title">Review Order</div>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-title">Shipping</div>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-title">Payment</div>
+            </div>
+            <div class="step" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-title">Confirm</div>
+            </div>
+        </div>
+
+        <!-- Step 1: Order Review -->
+        <div class="checkout-section active" id="step-1">
+            <div class="checkout-items">
+                <h2><i class="fas fa-shopping-bag"></i> Review Your Order</h2>
+                <div id="checkout-items-list">
+                    <!-- Items will be populated from cart data -->
+                </div>
+                
+                <div class="checkout-summary">
+                    <div class="checkout-row">
+                        <span>Subtotal</span>
+                        <span id="checkout-subtotal">$0.00</span>
+                    </div>
+                    <div class="checkout-row">
+                        <span>Shipping</span>
+                        <span id="checkout-shipping">$10.00</span>
+                    </div>
+                    <div class="checkout-row">
+                        <span>Tax (7%)</span>
+                        <span id="checkout-tax">$0.00</span>
+                    </div>
+                    <div class="checkout-row total">
+                        <span>Total</span>
+                        <span id="checkout-total">$0.00</span>
+                    </div>
+                </div>
+                <div class="step-buttons">
+                    <button class="prev-step" onclick="window.location.href='products.html'">Back to Shop</button>
+                    <button class="next-step" onclick="nextStep()">Continue to Shipping</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Shipping & Billing -->
+        <div class="checkout-section" id="step-2">
+            <div class="checkout-form">
+                <h2>Shipping & Billing Details</h2>
+                <form id="shipping-form">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="address">Street Address *</label>
+                        <input type="text" id="address" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City *</label>
+                            <input type="text" id="city" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="state">State/Province *</label>
+                            <input type="text" id="state" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="zip">ZIP/Postal Code *</label>
+                            <input type="text" id="zip" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="country">Country *</label>
+                            <select id="country" required>
+                                <option value="">Select Country</option>
+                                <option value="US">United States</option>
+                                <option value="CA">Canada</option>
+                                <option value="UK">United Kingdom</option>
+                                <option value="AU">Australia</option>
+                                <option value="GH">Ghana</option>
+                                <option value="NG">Nigeria</option>
+                                <option value="ZA">South Africa</option>
+                                <option value="KE">Kenya</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">Order Notes (Optional)</label>
+                        <textarea id="notes" rows="3"></textarea>
+                    </div>
+                </form>
+                <div class="step-buttons">
+                    <button class="prev-step" onclick="prevStep()">Back to Review</button>
+                    <button class="next-step" onclick="nextStep()">Continue to Payment</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Payment -->
+        <div class="checkout-section" id="step-3">
+            <div class="checkout-form">
+                <h2>Payment Method</h2>
+                <div class="payment-methods">
+                    <div class="payment-method active">
+                        <input type="radio" name="payment" id="credit-card" checked>
+                        <div class="payment-method-info">
+                            <div class="payment-method-name">Credit/Debit Card</div>
+                            <div class="payment-method-description">Pay securely with your credit or debit card</div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method">
+                        <input type="radio" name="payment" id="paypal">
+                        <div class="payment-method-info">
+                            <div class="payment-method-name">PayPal</div>
+                            <div class="payment-method-description">Pay via PayPal; you can pay with your credit card if you don't have a PayPal account</div>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-method">
+                        <input type="radio" name="payment" id="mobile-money">
+                        <div class="payment-method-info">
+                            <div class="payment-method-name">Mobile Money</div>
+                            <div class="payment-method-description">Pay using mobile money services like M-Pesa, MTN Mobile Money, or AirtelTigo Money</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="payment-forms">
+                    <div id="credit-card-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="card-number">Card Number *</label>
+                                <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="card-name">Name on Card *</label>
+                                <input type="text" id="card-name">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiry">Expiration (MM/YY) *</label>
+                                <input type="text" id="expiry" placeholder="MM/YY">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="cvv">CVV *</label>
+                                <input type="text" id="cvv" placeholder="123">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="paypal-form" style="display: none;">
+                        <p>You will be redirected to PayPal to complete your payment.</p>
+                    </div>
+                    
+                    <div id="mobile-money-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="mobile-provider">Mobile Money Provider *</label>
+                            <select id="mobile-provider">
+                                <option value="">Select Provider</option>
+                                <option value="mtn">MTN Mobile Money</option>
+                                <option value="vodafone">Vodafone Cash</option>
+                                <option value="airtel">AirtelTigo Money</option>
+                                <option value="mpesa">M-Pesa</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="mobile-number">Mobile Number *</label>
+                            <input type="tel" id="mobile-number" placeholder="e.g. +233 XX XXX XXXX">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="payment-icons">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                
+                <div class="step-buttons">
+                    <button class="prev-step" onclick="prevStep()">Back to Shipping</button>
+                    <button class="next-step" onclick="nextStep()">Review Order</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Confirmation -->
+        <div class="checkout-section" id="step-4">
+            <div class="checkout-form">
+                <h2>Order Confirmation</h2>
+                <div id="order-summary">
+                    <!-- Will be populated with JavaScript -->
+                </div>
+                <div class="step-buttons">
+                    <button class="prev-step" onclick="prevStep()">Back to Payment</button>
+                    <button class="next-step" onclick="placeOrder()">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Mosaic Grove</h3>
+                <p>Empowering communities through sustainable farming</p>
+                <div class="footer-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> Eastern Afram Plains, Ghana</p>
+                    <p><i class="fas fa-phone"></i> +233 123 456 789</p>
+                    <p><i class="fas fa-envelope"></i> info@mosaicgrove.com</p>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="products.html">Products</a>
+                <a href="impact.html">Impact</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Subscribe to Our Newsletter</h4>
+                    <form>
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Mosaic Grove. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateSteps() {
+            document.querySelectorAll('.step').forEach(step => {
+                const stepNum = parseInt(step.dataset.step);
+                step.classList.remove('active', 'completed');
+                if (stepNum === currentStep) {
+                    step.classList.add('active');
+                } else if (stepNum < currentStep) {
+                    step.classList.add('completed');
+                }
+            });
+
+            document.querySelectorAll('.checkout-section').forEach((section, index) => {
+                section.classList.toggle('active', index + 1 === currentStep);
+            });
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                if (validateCurrentStep()) {
+                    currentStep++;
+                    updateSteps();
+                    if (currentStep === 4) {
+                        populateOrderSummary();
+                    }
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateSteps();
+            }
+        }
+
+        function validateCurrentStep() {
+            switch(currentStep) {
+                case 1:
+                    return true; // Order review doesn't need validation
+                case 2:
+                    return validateShippingForm();
+                case 3:
+                    return validatePaymentForm();
+                default:
+                    return true;
+            }
+        }
+
+        function validateShippingForm() {
+            const form = document.getElementById('shipping-form');
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('error');
+                    isValid = false;
+                } else {
+                    field.classList.remove('error');
+                }
+            });
+
+            if (!isValid) {
+                alert('Please fill in all required fields');
+            }
+            return isValid;
+        }
+
+        function validatePaymentForm() {
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').id;
+            let isValid = true;
+
+            if (paymentMethod === 'credit-card') {
+                const cardFields = ['card-number', 'card-name', 'expiry', 'cvv'];
+                cardFields.forEach(field => {
+                    const element = document.getElementById(field);
+                    if (!element.value.trim()) {
+                        element.classList.add('error');
+                        isValid = false;
+                    } else {
+                        element.classList.remove('error');
+                    }
+                });
+            } else if (paymentMethod === 'mobile-money') {
+                const mobileFields = ['mobile-provider', 'mobile-number'];
+                mobileFields.forEach(field => {
+                    const element = document.getElementById(field);
+                    if (!element.value.trim()) {
+                        element.classList.add('error');
+                        isValid = false;
+                    } else {
+                        element.classList.remove('error');
+                    }
+                });
+            }
+
+            if (!isValid) {
+                alert('Please fill in all required payment fields');
+            }
+            return isValid;
+        }
+
+        function populateOrderSummary() {
+            const orderSummary = document.getElementById('order-summary');
+            const checkoutData = JSON.parse(localStorage.getItem('checkoutData'));
+            const shippingDetails = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                zip: document.getElementById('zip').value,
+                country: document.getElementById('country').value
+            };
+
+            let summaryHTML = `
+                <div class="confirmation-section">
+                    <h3>Shipping Details</h3>
+                    <p>${shippingDetails.name}</p>
+                    <p>${shippingDetails.email}</p>
+                    <p>${shippingDetails.address}</p>
+                    <p>${shippingDetails.city}, ${shippingDetails.state} ${shippingDetails.zip}</p>
+                    <p>${shippingDetails.country}</p>
+                </div>
+                <div class="confirmation-section">
+                    <h3>Order Summary</h3>
+                    <div class="checkout-summary">
+                        <div class="checkout-row">
+                            <span>Subtotal</span>
+                            <span>$${checkoutData.summary.subtotal.toFixed(2)}</span>
+                        </div>
+                        <div class="checkout-row">
+                            <span>Shipping</span>
+                            <span>$${checkoutData.summary.shipping.toFixed(2)}</span>
+                        </div>
+                        <div class="checkout-row">
+                            <span>Tax</span>
+                            <span>$${checkoutData.summary.tax.toFixed(2)}</span>
+                        </div>
+                        <div class="checkout-row total">
+                            <span>Total</span>
+                            <span>$${checkoutData.summary.total.toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            orderSummary.innerHTML = summaryHTML;
+        }
+
+        function placeOrder() {
+            if (validateCurrentStep()) {
+                const checkoutData = JSON.parse(localStorage.getItem('checkoutData'));
+                const paymentMethod = document.querySelector('input[name="payment"]:checked').id;
+                
+                const order = {
+                    items: checkoutData.items,
+                    customer: {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        address: document.getElementById('address').value,
+                        city: document.getElementById('city').value,
+                        state: document.getElementById('state').value,
+                        zip: document.getElementById('zip').value,
+                        country: document.getElementById('country').value,
+                        notes: document.getElementById('notes').value
+                    },
+                    payment: {
+                        method: paymentMethod
+                    },
+                    totals: checkoutData.summary,
+                    orderDate: new Date().toISOString(),
+                    orderNumber: generateOrderNumber()
+                };
+
+                // Add payment details based on selected method
+                if (paymentMethod === 'credit-card') {
+                    order.payment.details = {
+                        cardNumber: document.getElementById('card-number').value,
+                        cardName: document.getElementById('card-name').value,
+                        expiry: document.getElementById('expiry').value,
+                        cvv: document.getElementById('cvv').value
+                    };
+                } else if (paymentMethod === 'mobile-money') {
+                    order.payment.details = {
+                        provider: document.getElementById('mobile-provider').value,
+                        mobileNumber: document.getElementById('mobile-number').value
+                    };
+                }
+
+                // Save order and clear cart
+                localStorage.setItem('mosaicGroveLastOrder', JSON.stringify(order));
+                localStorage.removeItem('mosaicGroveCart');
+                localStorage.removeItem('checkoutData');
+
+                // Redirect to confirmation page
+                window.location.href = 'order-confirmation.html';
+            }
+        }
+
+        function generateOrderNumber() {
+            const timestamp = new Date().getTime().toString().slice(-6);
+            const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            return `MG-${timestamp}-${random}`;
+        }
+
+        // Initialize checkout page
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkoutData = JSON.parse(localStorage.getItem('checkoutData'));
+            
+            if (!checkoutData || !checkoutData.items || checkoutData.items.length === 0) {
+                window.location.href = 'products.html';
+                return;
+            }
+            
+            // Populate initial order review
+            const checkoutItemsList = document.getElementById('checkout-items-list');
+            checkoutData.items.forEach(item => {
+                const checkoutItem = document.createElement('div');
+                checkoutItem.className = 'checkout-item';
+                checkoutItem.innerHTML = `
+                    <div class="checkout-item-image" style="background-image: url('${item.image}')"></div>
+                    <div class="checkout-item-details">
+                        <h4 class="checkout-item-name">${item.name}</h4>
+                        ${item.variations && item.variations.size ? `<div class="checkout-item-size">Size: ${item.variations.size}</div>` : ''}
+                        <div class="checkout-item-price">$${item.price.toFixed(2)}</div>
+                        <div class="checkout-item-quantity">Quantity: ${item.quantity}</div>
+                    </div>
+                `;
+                checkoutItemsList.appendChild(checkoutItem);
+            });
+
+            // Display totals
+            document.getElementById('checkout-subtotal').textContent = `$${checkoutData.summary.subtotal.toFixed(2)}`;
+            document.getElementById('checkout-tax').textContent = `$${checkoutData.summary.tax.toFixed(2)}`;
+            document.getElementById('checkout-shipping').textContent = `$${checkoutData.summary.shipping.toFixed(2)}`;
+            document.getElementById('checkout-total').textContent = `$${checkoutData.summary.total.toFixed(2)}`;
+
+            // Set up payment method selection
+            const paymentMethods = document.querySelectorAll('.payment-method');
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', () => {
+                    paymentMethods.forEach(m => m.classList.remove('active'));
+                    method.classList.add('active');
+                    const radio = method.querySelector('input[type="radio"]');
+                    radio.checked = true;
+
+                    // Show/hide appropriate payment form
+                    const forms = {
+                        'credit-card': document.getElementById('credit-card-form'),
+                        'paypal': document.getElementById('paypal-form'),
+                        'mobile-money': document.getElementById('mobile-money-form')
+                    };
+
+                    Object.entries(forms).forEach(([id, form]) => {
+                        form.style.display = id === radio.id ? 'block' : 'none';
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

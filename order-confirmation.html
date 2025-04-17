@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - Mosaic Grove</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/cart-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <style>
+        .order-confirmation {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 2rem;
+            text-align: center;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .order-confirmation .fa-check-circle {
+            font-size: 5rem;
+            color: #4CAF50;
+            margin-bottom: 2rem;
+        }
+
+        .order-confirmation h1 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+
+        .order-confirmation p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .order-number {
+            font-weight: 600;
+            color: #4CAF50;
+            font-size: 1.1rem;
+            background: #e8f5e9;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .order-details, .shipping-info {
+            text-align: left;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .order-details h3, .shipping-info h3 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #4CAF50;
+        }
+
+        .order-detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .order-detail-label {
+            color: #666;
+        }
+
+        .order-detail-value {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .total-row {
+            border-top: 2px solid #e0e0e0;
+            margin-top: 1rem;
+            padding-top: 1rem;
+        }
+
+        .total-row .order-detail-label,
+        .total-row .order-detail-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .shipping-info {
+            margin-top: 2rem;
+        }
+
+        .customer-info {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .customer-info strong {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .shop-now-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            margin-top: 2rem;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .shop-now-btn:hover {
+            background: #45a049;
+        }
+
+        .order-items {
+            margin-bottom: 2rem;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-details {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .item-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .item-info h4 {
+            margin: 0;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .item-info p {
+            margin: 0.25rem 0 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Mosaic Grove</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="products.html">Products</a>
+            <a href="impact.html">Impact</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="order-confirmation">
+        <i class="fas fa-check-circle"></i>
+        <h1>Thank You for Your Order!</h1>
+        <p>Your order has been received and is being processed. You will receive an email confirmation shortly.</p>
+        <p>Order Number: <span id="order-number" class="order-number"></span></p>
+        
+        <div class="order-details">
+            <h3>Order Details</h3>
+            <div id="order-items" class="order-items">
+                <!-- Order items will be populated here -->
+            </div>
+            
+            <div class="order-summary">
+                <div class="order-detail-row">
+                    <span class="order-detail-label">Subtotal:</span>
+                    <span id="order-subtotal" class="order-detail-value"></span>
+                </div>
+                <div class="order-detail-row">
+                    <span class="order-detail-label">Shipping:</span>
+                    <span id="order-shipping" class="order-detail-value"></span>
+                </div>
+                <div class="order-detail-row">
+                    <span class="order-detail-label">Tax:</span>
+                    <span id="order-tax" class="order-detail-value"></span>
+                </div>
+                <div class="order-detail-row total-row">
+                    <span class="order-detail-label">Total:</span>
+                    <span id="order-total" class="order-detail-value"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="shipping-info">
+            <h3>Shipping Information</h3>
+            <div id="customer-details" class="customer-info">
+                <!-- Customer details will be populated here -->
+            </div>
+        </div>
+        
+        <a href="products.html" class="shop-now-btn">Continue Shopping</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Mosaic Grove</h3>
+                <p>Empowering communities through sustainable farming</p>
+                <div class="footer-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> Eastern Afram Plains, Ghana</p>
+                    <p><i class="fas fa-phone"></i> +233 123 456 789</p>
+                    <p><i class="fas fa-envelope"></i> info@mosaicgrove.com</p>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="products.html">Products</a>
+                <a href="impact.html">Impact</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Subscribe to Our Newsletter</h4>
+                    <form>
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Mosaic Grove. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get order data from localStorage
+            const orderData = JSON.parse(localStorage.getItem('mosaicGroveLastOrder'));
+            
+            if (!orderData) {
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            // Populate order number
+            document.getElementById('order-number').textContent = orderData.orderNumber;
+            
+            // Populate order items
+            const orderItemsContainer = document.getElementById('order-items');
+            
+            orderData.items.forEach(item => {
+                const orderItem = document.createElement('div');
+                orderItem.className = 'order-item';
+                
+                orderItem.innerHTML = `
+                    <div class="item-details">
+                        <div class="item-image" style="background-image: url('${item.image}')"></div>
+                        <div class="item-info">
+                            <h4>${item.name}</h4>
+                            <p>Qty: ${item.quantity} × $${item.price.toFixed(2)}</p>
+                        </div>
+                    </div>
+                    <div class="item-total">$${(item.price * item.quantity).toFixed(2)}</div>
+                `;
+                
+                orderItemsContainer.appendChild(orderItem);
+            });
+            
+            // Populate order totals
+            document.getElementById('order-subtotal').textContent = `$${orderData.totals.subtotal.toFixed(2)}`;
+            document.getElementById('order-shipping').textContent = `$${orderData.totals.shipping.toFixed(2)}`;
+            document.getElementById('order-tax').textContent = `$${orderData.totals.tax.toFixed(2)}`;
+            document.getElementById('order-total').textContent = `$${orderData.totals.total.toFixed(2)}`;
+            
+            // Populate customer details
+            const customerDetails = document.getElementById('customer-details');
+            const customer = orderData.customer;
+            
+            customerDetails.innerHTML = `
+                <p><strong>${customer.name}</strong></p>
+                <p>${customer.email}</p>
+                <p>${customer.phone}</p>
+                <p>${customer.address}</p>
+                <p>${customer.city}, ${customer.state} ${customer.zip}</p>
+                <p>${customer.country}</p>
+            `;
+            
+            if (customer.notes) {
+                const notesElement = document.createElement('div');
+                notesElement.style.marginTop = '1rem';
+                notesElement.style.padding = '1rem';
+                notesElement.style.backgroundColor = '#fff';
+                notesElement.style.borderRadius = '4px';
+                
+                notesElement.innerHTML = `
+                    <p><strong>Order Notes:</strong></p>
+                    <p>${customer.notes}</p>
+                `;
+                
+                customerDetails.appendChild(notesElement);
+            }
+        });
+    </script>
+</body>
+</html> 

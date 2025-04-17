@@ -16,52 +16,120 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize benefits carousel
     initBenefitsCarousel();
+
+    // Initialize featured product buttons
+    initFeaturedProductButtons();
+
+    // Initialize cart icon functionality
+    initCartIcon();
 });
 
 // Product Filtering Functionality
 function initProductFilters() {
-    const categoryTabs = document.querySelectorAll('.category-tab');
+    const filterButtons = document.querySelectorAll('.filter-btn');
     const productCategories = document.querySelectorAll('.product-category');
     const plantBasedSection = document.querySelector('.plant-based');
-    const plantBasedCards = document.querySelectorAll('.product-card');
+    const mainProducts = document.querySelector('.main-products');
     
-    if (!categoryTabs.length) return;
+    // Set initial state - 'All Products' should be active by default
+    const defaultFilter = document.querySelector('.filter-btn[data-category="all"]');
+    if (defaultFilter) {
+        defaultFilter.classList.add('active');
+    }
+
+    // Store the last selected category
+    let lastSelectedCategory = 'all';
     
-    categoryTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // Remove active class from all tabs
-            categoryTabs.forEach(t => t.classList.remove('active'));
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const category = this.getAttribute('data-category');
             
-            // Add active class to clicked tab
-            tab.classList.add('active');
+            // Don't do anything if clicking the same category
+            if (category === lastSelectedCategory) return;
             
-            const category = tab.getAttribute('data-category');
+            // Update button states
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
             
-            // Handle visibility based on category
-            if (category === 'all') {
-                // Show all products
-                productCategories.forEach(pc => pc.style.display = 'block');
-                plantBasedSection.style.display = 'block';
-            } else if (category === 'cashews') {
-                // Show only cashew products (assuming first product category is cashews)
-                productCategories[0].style.display = 'block';
-                productCategories[1].style.display = 'none';
-                plantBasedSection.style.display = 'none';
-            } else if (category === 'tiger-nuts') {
-                // Show only tiger nut products (assuming second product category is tiger nuts)
-                productCategories[0].style.display = 'none';
-                productCategories[1].style.display = 'block';
-                plantBasedSection.style.display = 'none';
-            } else if (category === 'plant-based') {
-                // Show only plant-based products
-                productCategories.forEach(pc => pc.style.display = 'none');
-                plantBasedSection.style.display = 'block';
-            }
+            // Store the new selected category
+            lastSelectedCategory = category;
             
-            // Scroll to the products section
-            document.querySelector('.main-products').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Handle section visibility with smooth transitions
+            let targetSection;
+            const allSections = [...productCategories, plantBasedSection];
+            
+            // First, add fade-out class to all sections
+            allSections.forEach(section => {
+                if (section) {
+                    section.style.opacity = '0';
+                    section.style.transition = 'opacity 0.3s ease';
+                }
+            });
+            
+            // After fade out, update visibility and determine target section
+            setTimeout(() => {
+                if (category === 'all') {
+                    targetSection = mainProducts;
+                    allSections.forEach(section => {
+                        if (section) {
+                            section.style.display = 'block';
+                            setTimeout(() => section.style.opacity = '1', 50);
+                        }
+                    });
+                } else {
+                    allSections.forEach(section => {
+                        if (section) section.style.display = 'none';
+                    });
+                    
+                    switch(category) {
+                        case 'cashews':
+                            targetSection = productCategories[0];
+                            if (productCategories[0]) {
+                                productCategories[0].style.display = 'block';
+                                setTimeout(() => productCategories[0].style.opacity = '1', 50);
+                            }
+                            break;
+                        case 'tiger-nuts':
+                            targetSection = productCategories[1];
+                            if (productCategories[1]) {
+                                productCategories[1].style.display = 'block';
+                                setTimeout(() => productCategories[1].style.opacity = '1', 50);
+                            }
+                            break;
+                        case 'plant-based':
+                            targetSection = plantBasedSection;
+                            if (plantBasedSection) {
+                                plantBasedSection.style.display = 'block';
+                                setTimeout(() => plantBasedSection.style.opacity = '1', 50);
+                            }
+                            break;
+                    }
+                }
+                
+                // Smooth scroll to target section
+                if (targetSection) {
+                    const headerOffset = 100; // Adjust this value based on your header height
+                    const elementPosition = targetSection.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 300); // Match this with the CSS transition time
         });
     });
+    
+    // Add necessary styles for smooth transitions
+    const style = document.createElement('style');
+    style.textContent = `
+        .product-category, .plant-based {
+            transition: opacity 0.3s ease;
+        }
+    `;
+    document.head.appendChild(style);
 }
 
 // Nutritional Tabs Functionality
@@ -332,8 +400,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add "View History" functionality to product cards
     document.querySelectorAll('.product-button, .cta-button').forEach(button => {
-        // We'll only modify buttons with text that includes "Learn More" or "View Details" or "Order Now"
-        if (button.textContent.includes('Learn More') || button.textContent.includes('View Details') || button.textContent.includes('Order Now')) {
+        // Only handle history view for "Learn More" and "View Details" buttons
+        if (button.textContent.includes('Learn More') || button.textContent.includes('View Details')) {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
                 
@@ -363,13 +431,47 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (historySection) {
                         historySection.scrollIntoView({ behavior: 'smooth' });
                         
-                        // Click the appropriate tab after a short delay to allow scrolling
+                        // Click the appropriate tab after a short delay
                         setTimeout(() => {
                             const targetTab = document.querySelector(`.history-tab[data-history="${productType}"]`);
                             if (targetTab) {
                                 targetTab.click();
                             }
                         }, 800);
+                    }
+                }
+            });
+        }
+    });
+
+    // Handle Order Now buttons separately
+    document.querySelectorAll('.cta-button, .product-button').forEach(button => {
+        if (button.textContent.includes('Order Now')) {
+            button.addEventListener('click', function(e) {
+                // Don't prevent default here as these are now proper links
+                const productCard = this.closest('.product-card') || this.closest('.product-detail');
+                if (!productCard) return;
+
+                const productTitle = productCard.querySelector('h3')?.textContent.toLowerCase() || 
+                                   productCard.querySelector('h2')?.textContent.toLowerCase() || '';
+                
+                // Only prevent default if we need to manually handle navigation
+                if (!this.hasAttribute('href')) {
+                    e.preventDefault();
+                    let productId = '';
+                    
+                    if (productTitle.includes('cashew')) {
+                        productId = 'premium-organic-cashews';
+                    } else if (productTitle.includes('tiger nut milk')) {
+                        productId = 'tiger-nut-milk';
+                    } else if (productTitle.includes('frozen dessert')) {
+                        productId = 'frozen-desserts';
+                    } else if (productTitle.includes('baked goods')) {
+                        productId = 'baked-goods';
+                    }
+                    
+                    if (productId) {
+                        window.location.href = `product-details.html?id=${productId}`;
                     }
                 }
             });
@@ -692,7 +794,9 @@ function initLearnMoreButtons() {
                 modal.querySelector('.product-title').textContent = productName;
                 
                 // Set product price
-                modal.querySelector('.product-price-detail').textContent = details.price;
+                const priceElement = modal.querySelector('.product-price-detail');
+                priceElement.textContent = details.price;
+                priceElement.classList.add('price-amount'); // Add class for cart functionality
                 
                 // Set product rating
                 const ratingElement = modal.querySelector('.product-rating');
@@ -747,6 +851,40 @@ function initLearnMoreButtons() {
                     });
                 } else {
                     historyButton.style.display = 'none';
+                }
+                
+                // Add event listener to Add to Cart button in modal
+                const modalAddToCartBtn = modal.querySelector('.modal-cta-button');
+                if (modalAddToCartBtn) {
+                    modalAddToCartBtn.className = 'add-to-cart-btn modal-cta-button';
+                    modalAddToCartBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        const product = {
+                            id: productName.toLowerCase().replace(/\s+/g, '-'),
+                            name: productName,
+                            price: details.price,
+                            image: details.image
+                        };
+                        
+                        // Add to cart using the global cart function
+                        if (window.mosaicGroveCart && window.mosaicGroveCart.addToCart) {
+                            window.mosaicGroveCart.addToCart(product, 1);
+                            
+                            // Open cart drawer
+                            const cartDrawer = document.querySelector('.cart-drawer');
+                            const overlay = document.querySelector('.drawer-overlay');
+                            if (cartDrawer && overlay) {
+                                cartDrawer.classList.add('open');
+                                overlay.classList.add('active');
+                            }
+                            
+                            // Close the modal
+                            modal.classList.remove('active');
+                            document.body.style.overflow = 'auto';
+                        }
+                    });
                 }
                 
                 // Show modal
@@ -853,4 +991,329 @@ function initBenefitsCarousel() {
     window.addEventListener('resize', () => {
         updateCarousel();
     });
-} 
+}
+
+// Add new function to handle featured product buttons
+function initFeaturedProductButtons() {
+    // Featured product Add to Cart button
+    const featuredAddToCartBtn = document.querySelector('.featured-product .add-to-cart-btn');
+    if (featuredAddToCartBtn) {
+        featuredAddToCartBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const product = {
+                id: featuredAddToCartBtn.dataset.productName.toLowerCase().replace(/\s+/g, '-'),
+                name: featuredAddToCartBtn.dataset.productName,
+                price: featuredAddToCartBtn.dataset.productPrice,
+                image: featuredAddToCartBtn.dataset.productImage
+            };
+
+            // Add to cart using the global cart function
+            if (window.mosaicGroveCart && window.mosaicGroveCart.addToCart) {
+                window.mosaicGroveCart.addToCart(product, 1);
+                
+                // Open cart drawer
+                const cartDrawer = document.querySelector('.cart-drawer');
+                const overlay = document.querySelector('.drawer-overlay');
+                if (cartDrawer && overlay) {
+                    cartDrawer.classList.add('open');
+                    overlay.classList.add('active');
+                }
+            }
+        });
+    }
+
+    // Featured product Wishlist button
+    const featuredWishlistBtn = document.querySelector('.featured-product .wishlist-btn');
+    if (featuredWishlistBtn) {
+        featuredWishlistBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const product = {
+                id: featuredWishlistBtn.dataset.productName.toLowerCase().replace(/\s+/g, '-'),
+                name: featuredWishlistBtn.dataset.productName,
+                price: featuredWishlistBtn.dataset.productPrice,
+                image: featuredWishlistBtn.dataset.productImage
+            };
+
+            // Add to wishlist using the global cart function
+            if (window.mosaicGroveCart && window.mosaicGroveCart.addToWishlist) {
+                window.mosaicGroveCart.addToWishlist(product);
+                
+                // Toggle heart icon
+                const heartIcon = featuredWishlistBtn.querySelector('i');
+                if (heartIcon) {
+                    heartIcon.classList.toggle('fas');
+                    heartIcon.classList.toggle('far');
+                }
+            }
+        });
+    }
+}
+
+// Update cart total and checkout button state
+function updateCartTotal() {
+    const cartTotalElement = document.querySelector('.cart-total-value');
+    const checkoutButton = document.querySelector('.checkout-btn');
+    const cartItems = document.querySelectorAll('.cart-item');
+    
+    let total = 0;
+    
+    // Calculate total from cart items
+    cartItems.forEach(item => {
+        // Get price (handle both formats: $7.99 and 7.99)
+        const priceElement = item.querySelector('.cart-item-price');
+        if (!priceElement) return;
+        
+        const priceText = priceElement.textContent.trim();
+        const price = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+        
+        // Get quantity
+        const quantityInput = item.querySelector('.quantity-input');
+        if (!quantityInput) return;
+        
+        const quantity = parseInt(quantityInput.value) || 0;
+        
+        // Add to total if both price and quantity are valid
+        if (!isNaN(price) && !isNaN(quantity)) {
+            total += price * quantity;
+        }
+    });
+    
+    // Update total display
+    if (cartTotalElement) {
+        cartTotalElement.textContent = `$${total.toFixed(2)}`;
+        cartTotalElement.classList.toggle('empty', total === 0);
+        
+        // Also update the total as a data attribute for easier access
+        cartTotalElement.setAttribute('data-total', total.toString());
+    }
+    
+    // Update checkout button state
+    if (checkoutButton) {
+        const hasItems = cartItems.length > 0;
+        const hasValidTotal = total > 0;
+        
+        checkoutButton.disabled = !hasItems || !hasValidTotal;
+        checkoutButton.title = hasItems && hasValidTotal ? 
+            'Proceed to checkout' : 
+            'Add items to cart to checkout';
+    }
+}
+
+// Add quantity change handler
+function handleQuantityChange(input) {
+    const newValue = parseInt(input.value) || 0;
+    if (newValue < 1) {
+        input.value = 1;
+    }
+    updateCartTotal();
+}
+
+// Initialize cart functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Initial update
+    updateCartTotal();
+    
+    // Listen for quantity input changes
+    document.addEventListener('change', function(e) {
+        if (e.target.matches('.quantity-input')) {
+            handleQuantityChange(e.target);
+        }
+    });
+    
+    // Listen for quantity button clicks
+    document.addEventListener('click', function(e) {
+        if (e.target.matches('.quantity-btn')) {
+            const input = e.target.parentElement?.querySelector('.quantity-input');
+            if (input) {
+                handleQuantityChange(input);
+            }
+        }
+    });
+    
+    // Listen for remove item clicks
+    document.addEventListener('click', function(e) {
+        if (e.target.matches('.cart-item-remove') || e.target.closest('.cart-item-remove')) {
+            setTimeout(updateCartTotal, 100); // Wait for DOM update
+        }
+    });
+    
+    // Observe cart changes
+    const cartItems = document.querySelector('.cart-items');
+    if (cartItems) {
+        const observer = new MutationObserver(() => {
+            setTimeout(updateCartTotal, 100); // Wait for DOM update
+        });
+        
+        observer.observe(cartItems, {
+            childList: true,
+            subtree: true,
+            characterData: true,
+            attributes: true
+        });
+    }
+});
+
+// Cart icon functionality
+function initCartIcon() {
+    const cartIcon = document.querySelector('.cart-icon');
+    const cartDrawer = document.querySelector('.cart-drawer');
+    const drawerOverlay = document.querySelector('.drawer-overlay');
+
+    if (cartIcon && cartDrawer) {
+        // Cart icon click handler
+        cartIcon.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Toggle cart drawer
+            cartDrawer.classList.add('open');
+            if (drawerOverlay) {
+                drawerOverlay.classList.add('active');
+            }
+        });
+
+        // Close drawer when clicking overlay
+        if (drawerOverlay) {
+            drawerOverlay.addEventListener('click', () => {
+                cartDrawer.classList.remove('open');
+                drawerOverlay.classList.remove('active');
+            });
+        }
+
+        // Close drawer when clicking close button
+        const closeButton = cartDrawer.querySelector('.cart-close');
+        if (closeButton) {
+            closeButton.addEventListener('click', () => {
+                cartDrawer.classList.remove('open');
+                if (drawerOverlay) {
+                    drawerOverlay.classList.remove('active');
+                }
+            });
+        }
+
+        // Close drawer with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && cartDrawer.classList.contains('open')) {
+                cartDrawer.classList.remove('open');
+                if (drawerOverlay) {
+                    drawerOverlay.classList.remove('active');
+                }
+            }
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize filter buttons
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const category = this.getAttribute('data-category');
+            
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Find the corresponding section
+            let targetSection;
+            switch(category) {
+                case 'all':
+                    targetSection = document.querySelector('.main-products');
+                    break;
+                case 'cashews':
+                    targetSection = document.querySelector('.product-category');
+                    break;
+                case 'tiger-nuts':
+                    targetSection = document.querySelectorAll('.product-category')[1];
+                    break;
+                case 'plant-based':
+                    targetSection = document.querySelector('.plant-based');
+                    break;
+            }
+            
+            if (targetSection) {
+                // Smooth scroll to section
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Initialize search functionality
+    const searchInput = document.querySelector('.product-search');
+    const productCards = document.querySelectorAll('.product-card, .product-detail');
+    
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
+        
+        productCards.forEach(card => {
+            const productName = card.querySelector('h2, h3').textContent.toLowerCase();
+            const productDescription = card.querySelector('p') ? 
+                                    card.querySelector('p').textContent.toLowerCase() : '';
+            const productCategory = card.querySelector('.product-category-label') ? 
+                                  card.querySelector('.product-category-label').textContent.toLowerCase() : '';
+            
+            // Check if the search term matches any product details
+            const matches = productName.includes(searchTerm) || 
+                          productDescription.includes(searchTerm) || 
+                          productCategory.includes(searchTerm);
+            
+            // Show/hide the card based on search match
+            card.style.display = matches ? 'block' : 'none';
+            
+            // If it's in a grid, handle the parent container
+            const parentGrid = card.closest('.product-grid');
+            if (parentGrid) {
+                card.style.display = matches ? 'flex' : 'none';
+            }
+        });
+    });
+
+    // Clear search when clicking the search icon
+    const searchIcon = document.querySelector('.search-icon');
+    if (searchIcon) {
+        searchIcon.addEventListener('click', function() {
+            searchInput.value = '';
+            // Trigger the input event to show all products
+            searchInput.dispatchEvent(new Event('input'));
+        });
+    }
+});
+
+// Handle "Read Full History" buttons
+document.addEventListener('DOMContentLoaded', function() {
+    const readMoreButtons = document.querySelectorAll('.read-more-btn');
+    
+    // Define external history sources for each product
+    const historyLinks = {
+        'cashews': 'https://en.wikipedia.org/wiki/Cashew',
+        'tiger-nuts': 'https://en.wikipedia.org/wiki/Cyperus_esculentus',
+        'dragon-fruit': 'https://en.wikipedia.org/wiki/Pitaya',
+        'wambugu-apples': 'https://www.farmerstrend.co.ke/growing-wambugu-apples-kenya/'
+    };
+    
+    readMoreButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Find the closest history content section to get the product type
+            const historyContent = this.closest('.history-content');
+            if (!historyContent) return;
+            
+            // Extract product type from the history content ID
+            const productType = historyContent.id.replace('-history', '');
+            
+            // Get the external link for this product
+            const externalLink = historyLinks[productType];
+            
+            if (externalLink) {
+                // Open in a new tab
+                window.open(externalLink, '_blank');
+            }
+        });
+    });
+}); 

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist - Mosaic Grove</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/cart-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <style>
+        .wishlist-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+
+        .wishlist-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .wishlist-header h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .wishlist-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .wishlist-item {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .wishlist-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .wishlist-item-image {
+            position: relative;
+            padding-top: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .wishlist-item-actions {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .wishlist-item-actions button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            color: #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .wishlist-item-actions button:hover {
+            background: #4CAF50;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .wishlist-item-content {
+            padding: 1.5rem;
+            background: #fff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .wishlist-item-name {
+            font-size: 1.1rem;
+            color: #1a1a1a;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            min-height: 3.1em;
+        }
+
+        .wishlist-item-price {
+            font-size: 1.3rem;
+            color: #4CAF50;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .wishlist-item-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .add-to-cart-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #45a049;
+        }
+
+        .remove-btn {
+            background: #f5f5f5;
+            color: #666;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background: #ff5252;
+            color: white;
+        }
+
+        .empty-wishlist {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: #f9f9f9;
+            border-radius: 12px;
+        }
+
+        .empty-wishlist i {
+            font-size: 4rem;
+            color: #ccc;
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-wishlist h2 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .empty-wishlist p {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .shop-now-btn {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .shop-now-btn:hover {
+            background: #45a049;
+        }
+
+        @media (max-width: 768px) {
+            .wishlist-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .wishlist-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Mosaic Grove</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="products.html">Products</a>
+            <a href="impact.html">Impact</a>
+            <a href="blog.html">Blog</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="wishlist-container">
+        <div class="wishlist-header">
+            <h1>My Wishlist</h1>
+            <p>Save your favorite items for later</p>
+        </div>
+
+        <div id="wishlist-content">
+            <!-- Content will be dynamically populated -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Mosaic Grove</h3>
+                <p>Empowering communities through sustainable farming</p>
+                <div class="footer-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> Eastern Afram Plains, Ghana</p>
+                    <p><i class="fas fa-phone"></i> +233 123 456 789</p>
+                    <p><i class="fas fa-envelope"></i> info@mosaicgrove.com</p>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="products.html">Products</a>
+                <a href="impact.html">Impact</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Subscribe to Our Newsletter</h4>
+                    <form>
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Mosaic Grove. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wishlistContent = document.getElementById('wishlist-content');
+            const wishlist = JSON.parse(localStorage.getItem('mosaicGroveWishlist')) || [];
+
+            if (wishlist.length === 0) {
+                // Show empty wishlist message
+                wishlistContent.innerHTML = `
+                    <div class="empty-wishlist">
+                        <i class="far fa-heart"></i>
+                        <h2>Your Wishlist is Empty</h2>
+                        <p>Add items you love to your wishlist. Review them anytime and easily move them to your cart.</p>
+                        <a href="products.html" class="shop-now-btn">Start Shopping</a>
+                    </div>
+                `;
+            } else {
+                // Create wishlist grid
+                const wishlistGrid = document.createElement('div');
+                wishlistGrid.className = 'wishlist-grid';
+
+                wishlist.forEach(item => {
+                    const wishlistItem = document.createElement('div');
+                    wishlistItem.className = 'wishlist-item';
+                    
+                    wishlistItem.innerHTML = `
+                        <div class="wishlist-item-image" style="background-image: url('${item.image}')">
+                            <div class="wishlist-item-actions">
+                                <button class="quick-view" title="Quick View">
+                                    <i class="far fa-eye"></i>
+                                </button>
+                                <button class="share" title="Share">
+                                    <i class="far fa-share-square"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="wishlist-item-content">
+                            <h3 class="wishlist-item-name">${item.name}</h3>
+                            <div class="wishlist-item-price">$${typeof item.price === 'number' ? item.price.toFixed(2) : parseFloat(item.price.replace(/[^0-9.]/g, '')).toFixed(2)}</div>
+                            <div class="wishlist-item-buttons">
+                                <button class="add-to-cart-btn" data-id="${item.id}">
+                                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                                </button>
+                                <button class="remove-btn" data-id="${item.id}">
+                                    <i class="far fa-trash-alt"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                    `;
+
+                    // Add event listeners
+                    const addToCartBtn = wishlistItem.querySelector('.add-to-cart-btn');
+                    const removeBtn = wishlistItem.querySelector('.remove-btn');
+                    const quickViewBtn = wishlistItem.querySelector('.quick-view');
+                    const shareBtn = wishlistItem.querySelector('.share');
+
+                    addToCartBtn.addEventListener('click', () => {
+                        window.mosaicGroveCart.moveToCart(item.id);
+                        wishlistItem.remove();
+                        if (document.querySelectorAll('.wishlist-item').length === 0) {
+                            location.reload(); // Refresh to show empty state
+                        }
+                    });
+
+                    removeBtn.addEventListener('click', () => {
+                        window.mosaicGroveCart.removeFromWishlist(item.id);
+                        wishlistItem.remove();
+                        if (document.querySelectorAll('.wishlist-item').length === 0) {
+                            location.reload(); // Refresh to show empty state
+                        }
+                    });
+
+                    quickViewBtn.addEventListener('click', () => {
+                        // Implement quick view functionality
+                        console.log('Quick view:', item);
+                    });
+
+                    shareBtn.addEventListener('click', () => {
+                        // Implement share functionality
+                        console.log('Share:', item);
+                    });
+
+                    wishlistGrid.appendChild(wishlistItem);
+                });
+
+                wishlistContent.appendChild(wishlistGrid);
+            }
+        });
+    </script>
+</body>
+</html> 

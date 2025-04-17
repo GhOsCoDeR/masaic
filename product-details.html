@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Mosaic Grove</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/product-styles.css">
+    <link rel="stylesheet" href="css/cart-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation will be included via JavaScript -->
+    <nav class="navbar"></nav>
+
+    <!-- Product Details Section -->
+    <section class="product-details-section">
+        <div class="container">
+            <div class="product-details-grid">
+                <!-- Product Images Gallery -->
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img src="" alt="" id="main-product-image">
+                    </div>
+                    <div class="thumbnail-gallery">
+                        <!-- Thumbnails will be populated via JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Product Information -->
+                <div class="product-info">
+                    <nav class="product-breadcrumb">
+                        <a href="products.html">Products</a>
+                        <span class="separator">/</span>
+                        <span class="category"></span>
+                        <span class="separator">/</span>
+                        <span class="product-name"></span>
+                    </nav>
+
+                    <div class="product-header">
+                        <h1 class="product-title"></h1>
+                        <div class="product-meta">
+                            <div class="product-rating">
+                                <div class="stars"></div>
+                                <span class="rating-count"></span>
+                            </div>
+                            <span class="product-sku">SKU: <span class="sku-value"></span></span>
+                        </div>
+                    </div>
+
+                    <div class="product-price">
+                        <span class="current-price"></span>
+                        <span class="original-price"></span>
+                        <span class="discount-badge"></span>
+                    </div>
+
+                    <div class="product-description"></div>
+
+                    <!-- Product Variations -->
+                    <div class="product-variations">
+                        <!-- Size Selection -->
+                        <div class="variation-group" id="size-selection">
+                            <label>Size</label>
+                            <div class="size-options">
+                                <!-- Will be populated via JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Package Type Selection -->
+                        <div class="variation-group" id="package-selection">
+                            <label>Package Type</label>
+                            <div class="package-options">
+                                <!-- Will be populated via JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Grade Selection (for applicable products) -->
+                        <div class="variation-group" id="grade-selection">
+                            <label>Grade</label>
+                            <div class="grade-options">
+                                <!-- Will be populated via JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stock Status -->
+                    <div class="stock-status">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="stock-text"></span>
+                    </div>
+
+                    <!-- Quantity Selection -->
+                    <div class="quantity-selector">
+                        <label>Quantity</label>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus"><i class="fas fa-minus"></i></button>
+                            <input type="number" value="1" min="1" class="quantity-input">
+                            <button class="quantity-btn plus"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <span class="max-quantity-note">Maximum order quantity: <span class="max-quantity"></span></span>
+                    </div>
+
+                    <!-- Add to Cart Section -->
+                    <div class="product-actions">
+                        <button class="add-to-cart-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                            Add to Cart
+                        </button>
+                        <button class="wishlist-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+
+                    <!-- Additional Product Information -->
+                    <div class="product-details-tabs">
+                        <div class="tabs-header">
+                            <button class="tab-btn active" data-tab="nutrition">Nutrition Facts</button>
+                            <button class="tab-btn" data-tab="benefits">Benefits</button>
+                            <button class="tab-btn" data-tab="shipping">Shipping</button>
+                        </div>
+                        <div class="tabs-content">
+                            <div class="tab-panel active" id="nutrition-panel">
+                                <!-- Will be populated via JavaScript -->
+                            </div>
+                            <div class="tab-panel" id="benefits-panel">
+                                <!-- Will be populated via JavaScript -->
+                            </div>
+                            <div class="tab-panel" id="shipping-panel">
+                                <!-- Will be populated via JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Products Section -->
+    <section class="related-products">
+        <div class="container">
+            <h2>You May Also Like</h2>
+            <div class="related-products-grid">
+                <!-- Will be populated via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer will be included via JavaScript -->
+    <footer></footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/product-details.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html> 
